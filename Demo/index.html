@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>mooTagify Demo Page</title>
+    <meta name="description" content="use tagify to enter tags.">
+    <meta name="author" content="Dimitar Christoff">
+
+    <link rel="stylesheet" href="../Source/css/mooTagify.css">
+    <link class="stylesheet" rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.1/mootools-yui-compressed.js"></script>
+    <script type="text/javascript" src="../Source/js/mooTagify.js" defer="defer"></script>
+</head>
+<body>
+<div class="main">
+    <h1>Enter some tags below</h1>
+    <div id="tagWrap" class="hide">
+        <div class="left tagLock">
+            <div class="tag">public<span class="tagClose"></span></div>
+        </div>
+        <div class="left">
+            <input id="listTags" name="listTags" placeholder="+Add tags" />
+        </div>
+
+        <div class="clear"></div>
+    </div>
+    <div>
+        <h1>Get the current tag list from the instance</h1>
+        <button id="getTags">get tags</button>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    window.addEvent("domready", function() {
+        var tagify = new mooTagify(document.id("tagWrap"));
+        document.id("getTags").addEvent("click", function() {
+            console.log(tagify.getTags(), tagify.getTags().join(","));
+        })
+    });
+</script>
+</body>
+</html>

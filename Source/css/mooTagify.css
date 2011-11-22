@@ -22,6 +22,9 @@ input::-webkit-input-placeholder {
 .clear {
      clear: both;
 }
+div.main {
+    margin:  20px;
+}
 /*mooTagify specifics*/
 #tagWrap {
     margin: 5px;
@@ -70,6 +73,10 @@ div.tag:hover {
     border: 1px solid #000;
     border-top: 0;
     border-left: 0;
+    background: #DCEC71;
+    background-image: -moz-linear-gradient(top, #DCEC71,#5F9F00);
+    background-image: -webkit-linear-gradient(top, #DCEC71,#5F9F00);
+    background-image: -o-linear-gradient(top, #DCEC71,#5F9F00);
 }
 div.pub {
     background: #DCEC71;

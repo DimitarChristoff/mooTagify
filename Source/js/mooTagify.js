@@ -96,12 +96,13 @@ var mooTagify = this.mooTagify = new Class({
         }).unique();
 
         var target = this.element.getFirst();
-        tags = this.getTags() || [];
 
         if (tagsArray.length) {
-            target.empty();
             this.listTags.set("value", "");
-            tagsArray = tags.append(tagsArray).unique();
+            var orig = this.getTags() || [];
+            console.log(orig, tagsArray, orig.append(tagsArray));
+            tagsArray = orig.append(tagsArray).unique();
+            target.empty();
             var done = 0;
             tagsArray.each(function(el) {
                 el = el.toLowerCase();
@@ -111,7 +112,7 @@ var mooTagify = this.mooTagify = new Class({
                 }
 
                 if (el.length >= this.options.minItemLength && el.length < this.options.maxItemLength) {
-                    new Element([construct, "[html=", el, "<span class='tagClose'></span>]"].join("")).inject(target);
+                    new Element([this.options.tagEls, "[html=", el, "<span class='tagClose'></span>]"].join("")).inject(target);
                     done++;
                 }
                 else {
@@ -139,7 +140,8 @@ var mooTagify = this.mooTagify = new Class({
 
     getTags: function() {
         // return an array of entered tags.
-        return this.element.getElements(this.options.tagEls).get("text");
+        var els = this.element.getElements(this.options.tagEls);
+        return (els.length) ? els.get("text") : [];
     }
 });
 

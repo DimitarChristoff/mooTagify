@@ -1,0 +1,6 @@
+.settings
+.project
+.tmp*
+.svn
+.DS_Store
+mootools-more*

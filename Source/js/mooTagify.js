@@ -1,7 +1,7 @@
 /*
 ---
 
-name: mooTagify
+name: mooTagify with auto suggest
 
 description: provides an input for tags or labels
 
@@ -17,8 +17,10 @@ requires:
   - Core/Element
   - Core/Array
   - Core/Class
+  - More/Element.Shorcuts
+  - More/Fx.Scroll
 
-provides: mooPlaceholder
+provides: mooTagify, autoSuggest
 
 ...
 */
@@ -137,7 +139,7 @@ var autoSuggest = this.autoSuggest = new Class({
 
             }
         });
-	
+
     },
 
     addOptions: function(answers) {
@@ -323,7 +325,7 @@ var mooTagify = this.mooTagify = new Class({
         this.element = document.id(element);
         if (!this.element)
             return;
-        
+
         this.request = request;
         this.setOptions(options);
 

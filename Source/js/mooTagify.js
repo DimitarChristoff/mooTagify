@@ -138,7 +138,6 @@ var autoSuggest = this.autoSuggest = new Class({
             }
         });
 	
-	console.log(this.request);
     },
 
     addOptions: function(answers) {

@@ -13,3 +13,9 @@ Example
 -------
 
 [http://jsfiddle.net/dimitar/6X7Yb/](http://jsfiddle.net/dimitar/6X7Yb/)
+
+Example with autoComplete
+-------------------------
+
+This needs PHP to run the results mocker:
+[http://fragged.org/mooTagify/Demo/](http://fragged.org/mooTagify/Demo/)

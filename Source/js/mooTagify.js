@@ -45,7 +45,7 @@ var autoSuggest = this.autoSuggest = new Class({
         minChars: 2,
         wrapperZen: "div.autocompleteWrapper",               // popup wrapper class
         wrapperShadow: "boxShadow",                          // extra class applied to wrapper, like one with box-shadow
-        maxHeight: 96,                                     // maximum allowed height for dropdown before it scrolls
+        maxHeight: 106,                                     // maximum allowed height for dropdown before it scrolls
         optionZen: "div.autocompleteOption",                 // base class of indivdual options
         optionClassSelected: "autocompleteOptionSelected",   // pre-selected value class
         optionClassOver: "autocompleteOptionOver",           // onmouseover option class
@@ -60,7 +60,7 @@ var autoSuggest = this.autoSuggest = new Class({
             return;
 
         this.request = request;
-	this.buildList();
+        this.buildList();
         this.attachEvents();
         this.index = -1;
         this.fireEvent("ready");
@@ -188,6 +188,13 @@ var autoSuggest = this.autoSuggest = new Class({
 
     handleKey: function(e) {
         switch(e.code) {
+            case 8:
+                // backspace.
+                var len = e.target.get("value").clean();
+                if (!len.length)
+                    this.fireEvent("delete");
+
+                break;
             case 40:
                 e && e.stop();
                 if (!this.answersOptions)
@@ -205,7 +212,7 @@ var autoSuggest = this.autoSuggest = new Class({
                     this.answersOptions.removeClass(this.options.optionClassSelected);
                     this.index = 0;
                     if (!this.answersOptions[this.index]) break;
-		    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
                 }
                 this.scrollFx.toElement(this.answersOptions[this.index]);
                 this.fireEvent("down");
@@ -337,6 +344,22 @@ var mooTagify = this.mooTagify = new Class({
     },
 
     attachEvents: function() {
+        var self = this;
+        if (this.options.autoSuggest && this.request) {
+            this.autoSuggester = new autoSuggest(this.element.getElement("input"), this.request, {
+                onSelect: function() {
+                    self.extractTags();
+                },
+                onDelete: function() {
+                    var last = self.element.getElements(self.options.tagEls).getLast();
+                    if (last)
+                        self.element.fireEvent("click", {
+                            target: last.getElement("span.tagClose")
+                        });
+                }
+            });
+        }
+
         this.element.addEvents({
             "blur:relay(input)": this.extractTags.bind(this),
             "click:relay(span.tagClose)": this.removeTag.bind(this),
@@ -347,10 +370,6 @@ var mooTagify = this.mooTagify = new Class({
             }.bind(this)
         });
 
-        if (this.options.autoSuggest && this.request) {
-            this.autoSuggester = new autoSuggest(this.element.getElement("input"), this.request);
-
-        }
         this.fireEvent("ready");
     },
 

@@ -11,6 +11,16 @@ $data = Array(
     "fuck this"
     );	
 
-echo json_encode($data);
+$prefix = strtolower(mysql_real_escape_string($_GET['prefix']));
+
+$results = Array();
+
+foreach($data as $val) {
+    $val2 = strtolower($val);
+    if (stristr($prefix, $val2))
+        $results[] = $val;
+}
+
+echo json_encode($results);
 
 ?>

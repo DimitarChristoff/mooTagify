@@ -11,13 +11,13 @@ $data = Array(
     "fuck this"
     );	
 
-$prefix = strtolower(mysql_real_escape_string($_GET['prefix']));
+$prefix = strtolower($_GET['prefix']);
 
 $results = Array();
 
 foreach($data as $val) {
     $val2 = strtolower($val);
-    if (stristr($prefix, $val2))
+    if (stristr($val2, $prefix))
         $results[] = $val;
 }
 

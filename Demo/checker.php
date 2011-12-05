@@ -22,7 +22,7 @@ foreach($data as $val) {
         $results[] = $val;
 }
 
-sort($results)
+sort($results);
 echo json_encode($results);
 
 ?>

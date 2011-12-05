@@ -5,11 +5,12 @@ $data = Array(
     "barman",
     "barmaid",
     "bartender",
-    "foobar",
-    "gaybar",
+    "FooBar",
+    "Gay Bar",
+    "crowbar",
     "this",
-    "fuck this"
-    );	
+    "I like this"
+);
 
 $prefix = strtolower($_GET['prefix']);
 
@@ -21,6 +22,6 @@ foreach($data as $val) {
         $results[] = $val;
 }
 
-echo json_encode($results);
+echo json_encode(sort($results));
 
 ?>

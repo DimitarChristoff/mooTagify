@@ -1,7 +1,7 @@
 mooTagify
 =========
 
-A MooTools plugin that enabled tag entry
+A MooTools plugin that enables tag entry
 
 How to use
 ----------

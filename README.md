@@ -1,7 +1,12 @@
 mooTagify
 =========
 
+![Screenshot](http://fragged.org/dev/mooTagify.png)
+
+
 A MooTools plugin that enables tag entry
+
+![Screenshot 1](http://fragged.org/dev/mooTagify.jpg)
 
 How to use
 ----------

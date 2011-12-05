@@ -100,7 +100,6 @@ var mooTagify = this.mooTagify = new Class({
         if (tagsArray.length) {
             this.listTags.set("value", "");
             var orig = this.getTags() || [];
-            console.log(orig, tagsArray, orig.append(tagsArray));
             tagsArray = orig.append(tagsArray).unique();
             target.empty();
             var done = 0;

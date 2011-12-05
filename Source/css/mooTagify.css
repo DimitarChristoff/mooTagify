@@ -101,3 +101,35 @@ span.tagClose:hover {
     background-color: rgba(255,255,255,.5);
     border-left: 1px solid #000;
 }
+
+div.occupationWrapper {
+    border: 1px solid #ccc;
+    border-top: 0;
+    position: absolute;
+    z-index: 10000;
+    background: white;
+    overflow: hidden;
+    overflow-y: auto;
+    display: none;
+}
+div.occupationOption {
+    padding: 4px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    border-bottom: 1px solid #eee;
+    clear: both;
+    cursor: pointer;
+    _cursor: hand;
+}
+div.occupationOptionSelected, div.occupationOptionSelected:hover {
+    background: purple !important;
+    color: #ccc !important;
+}
+div.occupationOption:hover, div.occupationOptionOver {
+    background: #ffffcf;
+}
+
+span.HL {
+    background: #555;
+    color: #fff;
+}

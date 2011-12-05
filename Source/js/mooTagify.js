@@ -5,7 +5,7 @@ name: mooTagify with auto suggest
 
 description: provides an input for tags or labels
 
-author: Dimitar Christoff, Qmetric Group Limited
+authors: Dimitar Christoff, Qmetric Group Limited
 
 license: MIT-style license.
 

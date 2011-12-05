@@ -338,9 +338,7 @@ var mooTagify = this.mooTagify = new Class({
         });
 
         if (this.options.autoSuggest && this.request) {
-            this.autoSuggester = new autoSuggest(this.element.getElement("input"), {
-                requestInstance: this.request
-            });
+            this.autoSuggester = new autoSuggest(this.element.getElement("input"), this.request);
 
         }
         this.fireEvent("ready");

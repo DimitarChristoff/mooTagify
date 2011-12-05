@@ -202,7 +202,8 @@ var autoSuggest = this.autoSuggest = new Class({
                 else {
                     this.answersOptions.removeClass(this.options.optionClassSelected);
                     this.index = 0;
-                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                    if (!this.answersOptions[this.index]) break;
+		    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
                 }
                 this.scrollFx.toElement(this.answersOptions[this.index]);
                 this.fireEvent("down");
@@ -224,6 +225,7 @@ var autoSuggest = this.autoSuggest = new Class({
                 else {
                     this.answersOptions.removeClass(this.options.optionClassSelected);
                     this.index = this.answersOptions.length - 1;
+                    if (!this.answersOptions[this.index]) break;
                     this.answersOptions[this.index].addClass(this.options.optionClassSelected);
                 }
 

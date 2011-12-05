@@ -32,6 +32,265 @@ Array.implement({
 
 });
 
+
+var autoSuggest = this.autoSuggest = new Class({
+
+    Implements: [Options,Events],
+
+    options: {
+        width: 233,
+        requestInstance: new Request(),
+        minChars: 2,
+        wrapperZen: "div.occupationWrapper",               // popup wrapper class
+        wrapperShadow: "boxShadow",                          // extra class applied to wrapper, like one with box-shadow
+        maxHeight: 96,                                     // maximum allowed height for dropdown before it scrolls
+        optionZen: "div.occupationOption",                 // base class of indivdual options
+        optionClassSelected: "occupationOptionSelected",   // pre-selected value class
+        optionClassOver: "occupationOptionOver",           // onmouseover option class
+        highlightTemplate: "<span class='HL'>{value}</span>"
+    },
+
+    initialize: function(input, options) {
+        this.setOptions(options);
+
+        this.element = document.id(input);
+        if (!this.element)
+            return;
+
+        this.buildList();
+        this.attachEvents();
+        this.index = -1;
+        this.fireEvent("ready");
+    },
+
+    buildList: function() {
+        var visible = this.element.isVisible();
+        var size;
+        if (!visible) {
+            var clone = this.element.clone().setStyles({
+                opacity: .01,
+                position: "absolute",
+                top: -1000
+            }).inject(document.body).show();
+            size = clone.getSize();
+            clone.destroy();
+        }
+        else {
+            size = this.element.getSize();
+        }
+        var width = this.options.width || size.x - 2;
+        var height = size.y;
+        var self = this;
+
+        this.wrapper = new Element(this.options.wrapperZen, {
+            styles: {
+                width: width,
+                marginTop: height
+            },
+            events: {
+                mouseenter: function() {
+                    self.over = true;
+                },
+                mouseleave: function() {
+                    self.over = false
+                },
+                outerClick: function(e) {
+                    if (!self.focused)
+                        self.hide();
+                },
+                "click:relay(div)": function(e) {
+                    var index = this.retrieve("index");
+                    self.select(index);
+                }
+            }
+        }).inject(this.element, "before");
+
+        this.wrapper.addClass(this.options.wrapperShadow);
+        this.scrollFx = new Fx.Scroll(this.wrapper, {
+            duration: 200
+        });
+    },
+
+    attachEvents: function() {
+        this.element.addEvents({
+            keydown: this.handleKey.bind(this),
+            keyup: this.handleText.bind(this),
+            focus: this.handleText.bind(this),
+            blur: this.blur.bind(this)
+        }).setStyle("width", this.options.width - 3);
+
+        var self = this;
+
+        this.request = this.options.requestInstance;
+
+        this.request.setOptions({
+            timeout: 30000,
+            link: "cancel",
+            onSuccess: function(data) {
+                if (data && data.length) {
+                    self.show();
+                    self.addOptions(data);
+                }
+                else {
+                    self.clearOptions();
+                    self.hide();
+                }
+
+            }
+        });
+
+    },
+
+    addOptions: function(answers) {
+        var self = this;
+        this.wrapper.empty();
+        this.answers = answers || [];
+        this.answersOptions = new Elements();
+        var val = {
+            value: this.element.get("value").clean()
+        };
+
+        this.answers.each(function(option, index) {
+            self.addOption(option, val, index);
+        });
+    },
+
+    addOption: function(option, val, index) {
+
+        var matches = option.match(val.value, 'i');
+        var value = option, self = this;
+        if (matches && matches.length) {
+            matches.each(function(substring) {
+                val.value = substring;
+                value = option.replace(substring, self.options.highlightTemplate.substitute(val), 'ig');
+            });
+        }
+
+        var opt = new Element(this.options.optionZen, {
+            html: value
+        }).inject(this.wrapper).store("index", index);
+
+        if (index === this.index)
+            opt.addClass(this.options.optionClassSelected);
+
+        this.answersOptions.push(opt);
+
+        if (this.options.maxHeight) { // if greater than 0 care about this
+            this.wrapper.setStyle("height", "auto");
+            var height = this.wrapper.getSize().y;
+            if (height >= this.options.maxHeight) {
+                this.wrapper.setStyle("height", this.options.maxHeight);
+            }
+
+        }
+    },
+
+    handleKey: function(e) {
+        switch(e.code) {
+            case 40:
+                e && e.stop();
+                if (this.answersOptions[this.index])
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+
+                if (this.index < this.answersOptions.length - 1) {
+                    this.answersOptions.removeClass(this.options.optionClassSelected);
+                    this.index++;
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                }
+                else {
+                    this.answersOptions.removeClass(this.options.optionClassSelected);
+                    this.index = 0;
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                }
+                this.scrollFx.toElement(this.answersOptions[this.index]);
+                this.fireEvent("down");
+                return;
+            break;
+            case 38:
+                e && e.stop();
+                if (this.answersOptions[this.index])
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+
+                if (this.index > 0) {
+                    this.answersOptions.removeClass(this.options.optionClassSelected);
+                    this.index--;
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                }
+                else {
+                    this.answersOptions.removeClass(this.options.optionClassSelected);
+                    this.index = this.answersOptions.length - 1;
+                    this.answersOptions[this.index].addClass(this.options.optionClassSelected);
+                }
+
+                this.scrollFx.toElement(this.answersOptions[this.index]);
+                this.fireEvent("up");
+                return;
+            break;
+            case 13:
+                if (e && e.stop) {
+                    e.stop();
+                }
+
+                if (this.index !== -1)
+                    this.select(this.index);
+                else {
+                   this.element.blur();
+                }
+            break;
+
+        }
+
+    },
+
+    handleText: function(e) {
+        if (e && e.code) {
+            if ([38,40].contains(e.code))
+                return;
+        }
+
+        var val = this.element.get("value");
+        if (val.length <= this.options.minChars) {
+            this.hide();
+            return;
+        }
+
+        this.request.get({
+            prefix: val
+        });
+    },
+
+    clearOptions: function() {
+        this.answers = [];
+        this.answersOptions = new Elements();
+        this.wrapper.empty();
+        this.index = -1;
+        this.hide();
+    },
+
+    select: function(index) {
+        this.element.set("value", this.answers[index]).blur();
+        this.clearOptions();
+        this.fireEvent("select", index);
+    },
+
+    hide: function() {
+        this.wrapper.setStyle("display", "none");
+    },
+
+    show: function() {
+        this.wrapper.setStyle("display", "block");
+        this.focused = true;
+    },
+
+    blur: function() {
+        this.element.set("value", this.element.get("value").clean());
+        this.focused = false;
+        if (!this.over)
+            this.hide();
+    }
+
+});
+
 var mooTagify = this.mooTagify = new Class({
 
     Implements: [Options, Events],
@@ -48,7 +307,9 @@ var mooTagify = this.mooTagify = new Class({
         minItemLength: 3,
         maxItemLength: 16,
         maxItemCount: 10,
-        persist: true
+        persist: true,
+        autoSuggest: true,
+        requestInstance: new Request()
 
     },
 
@@ -74,6 +335,13 @@ var mooTagify = this.mooTagify = new Class({
                  }
             }.bind(this)
         });
+
+        if (this.autoSuggest) {
+            this.autoSuggester = new autoSuggest(this.element.getElement("input"), {
+                requestInstance: this.options.requestInstance
+            })
+
+        }
         this.fireEvent("ready");
     },
 

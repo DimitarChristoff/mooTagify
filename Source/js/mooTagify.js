@@ -188,7 +188,10 @@ var autoSuggest = this.autoSuggest = new Class({
         switch(e.code) {
             case 40:
                 e && e.stop();
-                if (this.answersOptions && this.answersOptions[this.index])
+                if (!this.answersOptions)
+                    break;
+
+                if (this.answersOptions[this.index])
                     this.answersOptions[this.index].addClass(this.options.optionClassSelected);
 
                 if (this.index < this.answersOptions.length - 1) {
@@ -207,7 +210,10 @@ var autoSuggest = this.autoSuggest = new Class({
             break;
             case 38:
                 e && e.stop();
-                if (this.answersOptions && this.answersOptions[this.index])
+                if (!this.answersOptions)
+                    break;
+
+                if (this.answersOptions[this.index])
                     this.answersOptions[this.index].addClass(this.options.optionClassSelected);
 
                 if (this.index > 0) {

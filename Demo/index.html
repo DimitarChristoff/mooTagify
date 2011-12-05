@@ -35,7 +35,12 @@
 
 <script type="text/javascript">
     window.addEvent("domready", function() {
-        var tagify = new mooTagify(document.id("tagWrap"));
+        var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
+		url: "checker.php",
+		method: "get"
+	}), {
+		autoSuggest: true
+	});
         document.id("getTags").addEvent("click", function() {
             console.log(tagify.getTags(), tagify.getTags().join(","));
         })

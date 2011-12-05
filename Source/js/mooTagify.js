@@ -39,7 +39,7 @@ var autoSuggest = this.autoSuggest = new Class({
 
     options: {
         width: 233,
-        requestInstance: new Request(),
+        requestInstance: null,
         minChars: 2,
         wrapperZen: "div.occupationWrapper",               // popup wrapper class
         wrapperShadow: "boxShadow",                          // extra class applied to wrapper, like one with box-shadow
@@ -50,14 +50,15 @@ var autoSuggest = this.autoSuggest = new Class({
         highlightTemplate: "<span class='HL'>{value}</span>"
     },
 
-    initialize: function(input, options) {
+    initialize: function(input, request, options) {
         this.setOptions(options);
 
         this.element = document.id(input);
         if (!this.element)
             return;
 
-        this.buildList();
+        this.request = request;
+	this.buildList();
         this.attachEvents();
         this.index = -1;
         this.fireEvent("ready");
@@ -121,8 +122,6 @@ var autoSuggest = this.autoSuggest = new Class({
 
         var self = this;
 
-        this.request = this.options.requestInstance;
-
         this.request.setOptions({
             timeout: 30000,
             link: "cancel",
@@ -138,7 +137,8 @@ var autoSuggest = this.autoSuggest = new Class({
 
             }
         });
-
+	
+	console.log(this.request);
     },
 
     addOptions: function(answers) {
@@ -308,15 +308,17 @@ var mooTagify = this.mooTagify = new Class({
         maxItemLength: 16,
         maxItemCount: 10,
         persist: true,
-        autoSuggest: true,
-        requestInstance: new Request()
+        autoSuggest: false
 
     },
 
-    initialize: function(element) {
+    initialize: function(element, request, options) {
         this.element = document.id(element);
         if (!this.element)
             return;
+        
+        this.request = request;
+        this.setOptions(options);
 
         this.listTags = this.element.getElement("input,textarea");
         if (!this.listTags)
@@ -336,10 +338,10 @@ var mooTagify = this.mooTagify = new Class({
             }.bind(this)
         });
 
-        if (this.autoSuggest) {
+        if (this.options.autoSuggest && this.request) {
             this.autoSuggester = new autoSuggest(this.element.getElement("input"), {
-                requestInstance: this.options.requestInstance
-            })
+                requestInstance: this.request
+            });
 
         }
         this.fireEvent("ready");

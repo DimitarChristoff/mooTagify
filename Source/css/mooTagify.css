@@ -102,9 +102,8 @@ span.tagClose:hover {
     border-left: 1px solid #000;
 }
 
-div.occupationWrapper {
+div.autocompleteWrapper {
     border: 1px solid #ccc;
-    border-top: 0;
     position: absolute;
     z-index: 10000;
     background: white;
@@ -112,7 +111,7 @@ div.occupationWrapper {
     overflow-y: auto;
     display: none;
 }
-div.occupationOption {
+div.autocompleteOption {
     padding: 4px;
     padding-bottom: 2px;
     padding-top: 2px;
@@ -121,11 +120,11 @@ div.occupationOption {
     cursor: pointer;
     _cursor: hand;
 }
-div.occupationOptionSelected, div.occupationOptionSelected:hover {
+div.autocompleteOptionSelected, div.autocompleteOptionSelected:hover {
     background: purple !important;
     color: #ccc !important;
 }
-div.occupationOption:hover, div.occupationOptionOver {
+div.autocompleteOption:hover, div.autocompleteOptionOver {
     background: #ffffcf;
 }
 

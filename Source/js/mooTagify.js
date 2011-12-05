@@ -41,12 +41,12 @@ var autoSuggest = this.autoSuggest = new Class({
         width: 233,
         requestInstance: null,
         minChars: 2,
-        wrapperZen: "div.occupationWrapper",               // popup wrapper class
+        wrapperZen: "div.autocompleteWrapper",               // popup wrapper class
         wrapperShadow: "boxShadow",                          // extra class applied to wrapper, like one with box-shadow
         maxHeight: 96,                                     // maximum allowed height for dropdown before it scrolls
-        optionZen: "div.occupationOption",                 // base class of indivdual options
-        optionClassSelected: "occupationOptionSelected",   // pre-selected value class
-        optionClassOver: "occupationOptionOver",           // onmouseover option class
+        optionZen: "div.autocompleteOption",                 // base class of indivdual options
+        optionClassSelected: "autocompleteOptionSelected",   // pre-selected value class
+        optionClassOver: "autocompleteOptionOver",           // onmouseover option class
         highlightTemplate: "<span class='HL'>{value}</span>"
     },
 

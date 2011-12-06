@@ -1,6 +1,7 @@
 name: mooTagify
 author: D_mitar
 category: Interface
+version: beta-2
 tags: [tags, autocomplete]
 docs: https://github.com/DimitarChristoff/mooTagify
 demo: http://fragged.org/mooTagify/Demo/

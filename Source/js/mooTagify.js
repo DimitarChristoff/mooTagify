@@ -43,13 +43,14 @@ var autoSuggest = this.autoSuggest = new Class({
         width: 233,
         requestInstance: null,
         minChars: 2,
-        wrapperZen: "div.autocompleteWrapper",               // popup wrapper class
-        wrapperShadow: "boxShadow",                          // extra class applied to wrapper, like one with box-shadow
+        wrapperZen: "div.autocompleteWrapper",              // popup wrapper class
+        wrapperShadow: "boxShadow",                         // extra class applied to wrapper, like one with box-shadow
         maxHeight: 106,                                     // maximum allowed height for dropdown before it scrolls
-        optionZen: "div.autocompleteOption",                 // base class of indivdual options
-        optionClassSelected: "autocompleteOptionSelected",   // pre-selected value class
-        optionClassOver: "autocompleteOptionOver",           // onmouseover option class
-        highlightTemplate: "<span class='HL'>{value}</span>"
+        optionZen: "div.autocompleteOption",                // base class of indivdual options
+        optionClassSelected: "autocompleteOptionSelected",  // pre-selected value class
+        optionClassOver: "autocompleteOptionOver",          // onmouseover option class
+        highlightTemplate: "<span class='HL'>{value}</span>",
+        ajaxProperty: "prefix"                              // it will pass on the typed value as prefix=NNNn
     },
 
     initialize: function(input, request, options) {
@@ -259,6 +260,7 @@ var autoSuggest = this.autoSuggest = new Class({
     },
 
     handleText: function(e) {
+        // it's where the ajax look ahead happens...
         if (e && e.code) {
             if ([38,40].contains(e.code))
                 return;
@@ -270,9 +272,9 @@ var autoSuggest = this.autoSuggest = new Class({
             return;
         }
 
-        this.request.get({
-            prefix: val
-        });
+        var obj = {};
+        obj[this.options.ajaxProperty] = val;
+        this.request.get(obj);
     },
 
     clearOptions: function() {
@@ -374,13 +376,15 @@ var mooTagify = this.mooTagify = new Class({
     },
 
     extractTags: function() {
-        var newTags = this.listTags.get("value").clean().stripScripts().toLowerCase();
-        if (newTags.length) {
-            this.processTags(newTags);
-            if (this.options.persist)
-                this.listTags.focus.delay(1000, this.listTags);
+        (function() {
+            var newTags = this.listTags.get("value").clean().stripScripts().toLowerCase();
+            if (newTags.length) {
+                this.processTags(newTags);
+                if (this.options.persist)
+                    this.listTags.focus();
 
-        }
+            }
+        }).delay(300, this);
     },
 
     processTags: function(tags) {

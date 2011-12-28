@@ -349,9 +349,6 @@ var mooTagify = this.mooTagify = new Class({
         var self = this;
         if (this.options.autoSuggest && this.request) {
             this.autoSuggester = new autoSuggest(this.element.getElement("input"), this.request, {
-                onSelect: function() {
-                    self.extractTags();
-                },
                 onDelete: function() {
                     var last = self.element.getElements(self.options.tagEls).getLast();
                     if (last)
@@ -362,13 +359,20 @@ var mooTagify = this.mooTagify = new Class({
             });
         }
 
+        this.clicked = false;
         this.element.addEvents({
             "blur:relay(input)": this.extractTags.bind(this),
             "click:relay(span.tagClose)": this.removeTag.bind(this),
             "keydown:relay(input)": function(e, el) {
                 if (e.key == "enter") {
-                    e.target.blur();
-                 }
+                    this.extractTags();
+                }
+            }.bind(this),
+            "mousedown": function() {
+                this.clicked = true;
+            }.bind(this),
+            "mouseup": function() {
+                this.clicked = false;
             }.bind(this)
         });
 
@@ -376,7 +380,11 @@ var mooTagify = this.mooTagify = new Class({
     },
 
     extractTags: function() {
-        (function() {
+        this.timer = (function() {
+            if (this.clicked)
+                return;
+
+            clearInterval(this.timer);
             var newTags = this.listTags.get("value").clean().stripScripts().toLowerCase();
             if (newTags.length) {
                 this.processTags(newTags);
@@ -384,7 +392,8 @@ var mooTagify = this.mooTagify = new Class({
                     this.listTags.focus();
 
             }
-        }).delay(300, this);
+
+        }).periodical(200, this);
     },
 
     processTags: function(tags) {

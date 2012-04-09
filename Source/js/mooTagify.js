@@ -9,7 +9,7 @@ authors: Dimitar Christoff, Qmetric Group Limited
 
 license: MIT-style license.
 
-version: 1.0
+version: 1.1
 
 requires:
   - Core/String
@@ -20,7 +20,7 @@ requires:
   - More/Element.Shorcuts
   - More/Fx.Scroll
 
-provides: mooTagify, autoSuggest
+provides: mooTagify
 
 ...
 */
@@ -244,9 +244,7 @@ var autoSuggest = new Class({
                 return;
             break;
             case 13:
-                if (e && e.stop) {
-                    e.stop();
-                }
+                e && e.preventDefault && e.preventDefault();
 
                 if (this.index !== -1)
                     this.select(this.index);
@@ -326,8 +324,8 @@ var mooTagify = this.mooTagify = new Class({
         maxItemLength: 16,
         maxItemCount: 10,
         persist: true,
-        autoSuggest: false
-
+        autoSuggest: false,
+        addOnBlur: true
     },
 
     initialize: function(element, request, options) {
@@ -359,22 +357,25 @@ var mooTagify = this.mooTagify = new Class({
         }
 
         this.clicked = false;
-        this.element.addEvents({
+
+        var eventObject = {
             "blur:relay(input)": this.extractTags.bind(this),
             "click:relay(span.tagClose)": this.removeTag.bind(this),
             "keydown:relay(input)": function(e, el) {
                 if (e.key == "enter") {
-                    this.extractTags();
+                    self.extractTags();
                 }
-            }.bind(this),
+            },
             "mousedown": function() {
-                this.clicked = true;
-            }.bind(this),
+                self.clicked = true;
+            },
             "mouseup": function() {
-                this.clicked = false;
-            }.bind(this)
-        });
+                self.clicked = false;
+            }
+        };
 
+        !this.options.addOnBlur && (delete eventObject["blur:relay(input)"]);
+        this.element.addEvents(eventObject);
         this.fireEvent("ready");
     },
 

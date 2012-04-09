@@ -249,7 +249,7 @@ var autoSuggest = new Class({
                 if (this.index !== -1)
                     this.select(this.index);
                 else {
-                   this.element.blur();
+                   this.blur();
                 }
             break;
 
@@ -362,9 +362,7 @@ var mooTagify = this.mooTagify = new Class({
             "blur:relay(input)": this.extractTags.bind(this),
             "click:relay(span.tagClose)": this.removeTag.bind(this),
             "keydown:relay(input)": function(e, el) {
-                if (e.key == "enter") {
-                    self.extractTags();
-                }
+                e.key == "enter" && self.extractTags() && e.stop();
             },
             "mousedown": function() {
                 self.clicked = true;
@@ -394,6 +392,8 @@ var mooTagify = this.mooTagify = new Class({
             }
 
         }).periodical(200, this);
+
+        return this;
     },
 
     processTags: function(tags) {

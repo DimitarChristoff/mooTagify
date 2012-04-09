@@ -27,10 +27,13 @@
 
         <div class="clear"></div>
     </div>
+
+
     <div>
         <h1>Get the current tag list from the instance</h1>
         <button id="getTags">get tags</button>
     </div>
+
     <div>
 	<h1>The following are auto-completed</h1>
 	<pre>
@@ -50,11 +53,18 @@
 <script type="text/javascript">
     window.addEvent("domready", function() {
         var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
-		url: "checker.php",
-		method: "get"
-	}), {
-		autoSuggest: true
-	});
+    		url: "checker.php",
+    		method: "get"
+    	}), {
+    		autoSuggest: true,
+    		// addOnBlur: false, // only works via enter to add.
+    		onInvalidTag: function(invalidTag) {
+    		    console.log(invalidTag + " was rejected due to length");
+    		},
+    		onLimitReached: function(rejectedTag) {
+    		    console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
+    		}
+    	});
         document.id("getTags").addEvent("click", function() {
             console.log(tagify.getTags(), tagify.getTags().join(","));
         })

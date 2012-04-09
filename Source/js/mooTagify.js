@@ -333,7 +333,8 @@ var mooTagify = this.mooTagify = new Class({
         maxItemCount: 10,
         persist: true,
         autoSuggest: false,
-        addOnBlur: true
+        addOnBlur: true,
+        caseSensitiveTagMatching: false /* set to true, to keep case as entered */
     },
 
     initialize: function(element, request, options) {
@@ -391,12 +392,14 @@ var mooTagify = this.mooTagify = new Class({
                 return
 
             clearInterval(this.timer)
-            var newTags = this.listTags.get('value').clean().stripScripts().toLowerCase()
+            var newTags = this.listTags.get('value').clean().stripScripts()
+            if (!this.options.caseSensitiveTagMatching) {
+                newTags = newTags.toLowerCase()
+            }
             if (newTags.length) {
                 this.processTags(newTags)
                 if (this.options.persist)
                     this.listTags.focus()
-
             }
 
         }).periodical(200, this)
@@ -408,7 +411,8 @@ var mooTagify = this.mooTagify = new Class({
         // called when blurred tags entry, rebuilds hash tags preview
 
         var tagsArray = tags.split(',').map(function(el) {
-            return el.trim().toLowerCase()
+            el = el.trim() /* already done in caller .toLowerCase() */
+            return el
         }).unique()
 
         var target = this.element.getFirst()
@@ -417,10 +421,25 @@ var mooTagify = this.mooTagify = new Class({
             this.listTags.set('value', '')
             var orig = this.getTags() || []
             tagsArray = orig.append(tagsArray).unique()
+            
+            /* remove tags that only differ in case */
+            var tempArray = new Array()
+            tagsArray.each(function(tag) {
+                var found = tempArray.some(function(item) {
+                    return item.toLowerCase() == tag.toLowerCase()
+                })
+                if (!found) {
+                    tempArray.push(tag)
+                }
+            })
+            tagsArray = tempArray
+
             target.empty()
             var done = 0
             Array.each(tagsArray, function(el) {
-                el = el.toLowerCase()
+                if (!this.options.caseSensitiveTagMatching) {
+                    el = el.toLowerCase()
+                }
                 if (done >= this.options.maxItemCount) {
                     this.fireEvent('limitReached', el)
                     return
@@ -440,7 +459,10 @@ var mooTagify = this.mooTagify = new Class({
 
     removeTag: function(e) {
         var tag = e.target.getParent()
-        var tagText = tag.get('text').toLowerCase()
+        var tagText = tag.get('text')
+        if (!this.options.caseSensitiveTagMatching) {
+            tagText = tagText.toLowerCase()
+        }
         var self = this
         e.target.getParent().set('tween', {
             onComplete: function() {

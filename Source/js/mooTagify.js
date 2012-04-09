@@ -24,7 +24,7 @@ provides: mooTagify, autoSuggest
 
 ...
 */
-(function() {
+!function() {
 
 Array.implement({
 
@@ -35,7 +35,8 @@ Array.implement({
 });
 
 
-var autoSuggest = this.autoSuggest = new Class({
+var autoSuggest = new Class({
+    // private
 
     Implements: [Options,Events],
 
@@ -194,7 +195,6 @@ var autoSuggest = this.autoSuggest = new Class({
                 var len = e.target.get("value").clean();
                 if (!len.length)
                     this.fireEvent("delete");
-
                 break;
             case 40:
                 e && e.stop();
@@ -317,7 +317,7 @@ var mooTagify = this.mooTagify = new Class({
         /*
         onReady: Function.From,
         onLimitReached: Function.From,
-        onEmpty: Function.From,
+        onInvalidTag: function(rejectedTag) {},
         onTagsUpdate: Function.From,
         onTagRemove: function(tagText) {},
         */
@@ -351,10 +351,9 @@ var mooTagify = this.mooTagify = new Class({
             this.autoSuggester = new autoSuggest(this.element.getElement("input"), this.request, {
                 onDelete: function() {
                     var last = self.element.getElements(self.options.tagEls).getLast();
-                    if (last)
-                        self.element.fireEvent("click", {
-                            target: last.getElement("span.tagClose")
-                        });
+                    last && self.element.fireEvent("click", {
+                        target: last.getElement("span.tagClose")
+                    });
                 }
             });
         }
@@ -398,7 +397,6 @@ var mooTagify = this.mooTagify = new Class({
 
     processTags: function(tags) {
         // called when blurred tags entry, rebuilds hash tags preview
-        // var teststring = "a, aa,a, a, aaaa, aa, aaa, aaa,a,aaa,aaa";
 
         var tagsArray = tags.split(",").map(function(el) {
             return el.trim().toLowerCase();
@@ -412,10 +410,10 @@ var mooTagify = this.mooTagify = new Class({
             tagsArray = orig.append(tagsArray).unique();
             target.empty();
             var done = 0;
-            tagsArray.each(function(el) {
+            Array.each(tagsArray, function(el) {
                 el = el.toLowerCase();
                 if (done >= this.options.maxItemCount) {
-                    this.fireEvent("limitReached");
+                    this.fireEvent("limitReached", el);
                     return;
                 }
 
@@ -424,7 +422,7 @@ var mooTagify = this.mooTagify = new Class({
                     done++;
                 }
                 else {
-                    this.fireEvent("empty");
+                    this.fireEvent("invalidTag", el);
                 }
             }, this);
 
@@ -453,4 +451,4 @@ var mooTagify = this.mooTagify = new Class({
     }
 });
 
-})();
+}()

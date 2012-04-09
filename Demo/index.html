@@ -50,11 +50,17 @@
 <script type="text/javascript">
     window.addEvent("domready", function() {
         var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
-		url: "checker.php",
-		method: "get"
-	}), {
-		autoSuggest: true
-	});
+    		url: "checker.php",
+    		method: "get"
+    	}), {
+    		autoSuggest: true,
+    		onInvalidTag: function(invalidTag) {
+    		    console.log(invalidTag + " was rejected due to length");
+    		},
+    		onLimitReached: function(rejectedTag) {
+    		    console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
+    		}
+    	});
         document.id("getTags").addEvent("click", function() {
             console.log(tagify.getTags(), tagify.getTags().join(","));
         })

@@ -326,8 +326,8 @@ var mooTagify = this.mooTagify = new Class({
         maxItemLength: 16,
         maxItemCount: 10,
         persist: true,
-        autoSuggest: false
-
+        autoSuggest: false,
+        lowerCase: true
     },
 
     initialize: function(element, request, options) {
@@ -385,7 +385,11 @@ var mooTagify = this.mooTagify = new Class({
                 return;
 
             clearInterval(this.timer);
-            var newTags = this.listTags.get("value").clean().stripScripts().toLowerCase();
+            var newTags = this.listTags.get("value").clean().stripScripts();
+            if (this.options.lowerCase) {
+                newTags = newTags.toLowerCase();
+            }
+            
             if (newTags.length) {
                 this.processTags(newTags);
                 if (this.options.persist)
@@ -401,19 +405,35 @@ var mooTagify = this.mooTagify = new Class({
         // var teststring = "a, aa,a, a, aaaa, aa, aaa, aaa,a,aaa,aaa";
 
         var tagsArray = tags.split(",").map(function(el) {
-            return el.trim().toLowerCase();
+            return el.trim();
         }).unique();
-
+        
         var target = this.element.getFirst();
 
         if (tagsArray.length) {
             this.listTags.set("value", "");
             var orig = this.getTags() || [];
-            tagsArray = orig.append(tagsArray).unique();
+            tagsArray = orig.append(tagsArray);
+            if (this.options.lowerCase) {
+                tagsArray.unique();
+            } else {
+                var tempArray = new Array();
+                tagsArray.each(function(tag) {
+                    var found = tempArray.some(function(item) {
+                        return item.toLowerCase() == tag.toLowerCase();
+                    });
+                    if (!found) {
+                        tempArray.push(tag);
+                    }
+                });
+                tagsArray = tempArray;
+            }
             target.empty();
             var done = 0;
             tagsArray.each(function(el) {
-                el = el.toLowerCase();
+                if (this.options.lowerCase) {
+                    el = el.toLowerCase();
+                }
                 if (done >= this.options.maxItemCount) {
                     this.fireEvent("limitReached");
                     return;
@@ -434,7 +454,10 @@ var mooTagify = this.mooTagify = new Class({
 
     removeTag: function(e) {
         var tag = e.target.getParent();
-        var tagText = tag.get("text").toLowerCase();
+        var tagText = tag.get("text");
+        if (this.options.lowerCase) {
+            tagText = tagText.toLowerCase();
+        }
         var self = this;
         e.target.getParent().set("tween", {
             onComplete: function() {

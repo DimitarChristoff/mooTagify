@@ -9,7 +9,7 @@ A MooTools plugin that enables tag entry
 ![Screenshot 1](http://fragged.org/img/mooTagify.jpg)
 
 How to use
-----------
+==========
 
 Class: mooTagify
 ================

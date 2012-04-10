@@ -387,22 +387,28 @@ var mooTagify = this.mooTagify = new Class({
     },
 
     extractTags: function() {
-        clearInterval(this.timer)
-        this.timer = (function() {
-            if (this.clicked)
-                return
+        var self = this,
+            check = function() {
+                if (self.clicked)
+                    return false
 
-            clearInterval(this.timer)
+                clearInterval(this.timer)
 
-            var newTags = this.listTags.get('value').clean().stripScripts()
-            !this.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())
+                var newTags = self.listTags.get('value').clean().stripScripts()
+                !self.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())
 
-            if (newTags.length) {
-                this.processTags(newTags)
-                if (this.options.persist)
-                    this.listTags.focus()
+                if (newTags.length) {
+                    self.processTags(newTags)
+                    if (self.options.persist)
+                        self.listTags.focus()
+                }
+                self.options.autoSuggest && self.autoSuggester.hide()
+                return true
             }
-        }).periodical(200, this)
+
+        clearInterval(this.timer)
+
+        !check() && (this.timer = check.periodical(200))
 
         return this
     },
@@ -421,7 +427,7 @@ var mooTagify = this.mooTagify = new Class({
             this.listTags.set('value', '')
             var orig = this.getTags() || []
             tagsArray = orig.append(tagsArray).unique()
-            
+
             /* remove tags that only differ in case */
             var tempArray = []
             tagsArray.each(function(tag) {

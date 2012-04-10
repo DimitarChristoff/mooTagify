@@ -3,16 +3,12 @@ mooTagify
 
 ![Screenshot](http://fragged.org/img/mooTagify.png)
 
-
-A MooTools plugin that enables tag entry
+A MooTools plugin that enables tag easy entry and editing, including AJAX (cough) lookups.
 
 ![Screenshot 1](http://fragged.org/img/mooTagify.jpg)
 
 How to Use
-==========
-
-Class: mooTagify
-================
+----------
 
 ### Implements
 

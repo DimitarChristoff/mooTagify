@@ -3,7 +3,7 @@ if (typeof require == "function" && typeof module == "object") {
 }
 
 buster.testRunner.timeout = 1000;
-buster.testCase("mooTagify class test", {
+buster.testCase("mooTagify class test - case enforced > ", {
     setUp: function(done) {
         this.element = new Element("div#tagWrap", {
             html: [
@@ -126,3 +126,61 @@ buster.testCase("mooTagify class test", {
     }
 });
 
+
+buster.testCase("mooTagify class test - case insensitive > ", {
+    setUp: function(done) {
+        this.element = new Element("div#tagWrap", {
+            html: [
+                '<div class="left tagLock">',
+                '</div>',
+                '<div class="left">',
+                '<input id="listTags" name="listTags" placeholder="+Add tags" />',
+                '</div>',
+
+                '<div class="clear"></div>'
+            ].join("")
+        });
+
+        var self = this;
+        this.tagify = new mooTagify(this.element, new Request.JSON({
+            url: "checker.php",
+            method: "get"
+        }), {
+            onReady: function() {
+                self.ready = true;
+                done();
+            },
+            caseSensitiveTagMatching: true
+        });
+    },
+
+    "Expect tags to export in lowercase still": function(done) {
+        var testArray = ['Coda','Was','here'];
+        this.tagify.addEvent("tagsUpdate", function() {
+            var tags = this.getTags();
+            buster.assert.equals(tags, testArray);
+            done();
+        });
+
+        this.tagify.listTags.set("value", testArray.join(','));
+
+        this.tagify.element.fireEvent("blur:relay(input)");
+
+    },
+
+    "Expect tags to show in their original case": function(done) {
+        var self = this, testArray = ['Coda','Was','here'];
+        this.tagify.addEvent("tagsUpdate", function() {
+            var tags = self.element.getElements(".tag").get("text");
+            buster.assert.equals(tags, testArray);
+            done();
+        });
+
+        this.tagify.listTags.set("value", testArray.join(','));
+
+        this.tagify.element.fireEvent("blur:relay(input)");
+
+    }
+
+
+});

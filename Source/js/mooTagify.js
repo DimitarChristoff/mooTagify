@@ -393,9 +393,8 @@ var mooTagify = this.mooTagify = new Class({
 
             clearInterval(this.timer)
             var newTags = this.listTags.get('value').clean().stripScripts()
-            if (!this.options.caseSensitiveTagMatching) {
-                newTags = newTags.toLowerCase()
-            }
+            !this.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())
+
             if (newTags.length) {
                 this.processTags(newTags)
                 if (this.options.persist)
@@ -437,9 +436,8 @@ var mooTagify = this.mooTagify = new Class({
             target.empty()
             var done = 0
             Array.each(tagsArray, function(el) {
-                if (!this.options.caseSensitiveTagMatching) {
-                    el = el.toLowerCase()
-                }
+                !this.options.caseSensitiveTagMatching && (el = el.toLowerCase())
+
                 if (done >= this.options.maxItemCount) {
                     this.fireEvent('limitReached', el)
                     return
@@ -460,9 +458,8 @@ var mooTagify = this.mooTagify = new Class({
     removeTag: function(e) {
         var tag = e.target.getParent()
         var tagText = tag.get('text')
-        if (!this.options.caseSensitiveTagMatching) {
-            tagText = tagText.toLowerCase()
-        }
+        !this.options.caseSensitiveTagMatching && (tagText = tagText.toLowerCase())
+
         var self = this
         e.target.getParent().set('tween', {
             onComplete: function() {

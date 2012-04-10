@@ -136,7 +136,6 @@ buster.testCase("mooTagify class test - case insensitive > ", {
                 '<div class="left">',
                 '<input id="listTags" name="listTags" placeholder="+Add tags" />',
                 '</div>',
-
                 '<div class="clear"></div>'
             ].join("")
         });

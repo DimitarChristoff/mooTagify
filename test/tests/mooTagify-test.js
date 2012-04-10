@@ -1,7 +1,3 @@
-if (typeof require == "function" && typeof module == "object") {
-    buster = require("buster");
-}
-
 buster.testRunner.timeout = 1000;
 buster.testCase("mooTagify class test - case enforced > ", {
     setUp: function(done) {
@@ -181,5 +177,60 @@ buster.testCase("mooTagify class test - case insensitive > ", {
 
     }
 
+
+});
+
+
+
+buster.testCase("mooTagify class test - via syn events > ", {
+    setUp: function(done) {
+        this.element = new Element("div#tagWrap", {
+            html: [
+                '<div class="left tagLock">',
+                '<div class="tag">blah blah<span class="tagClose" id="closer"></span></div>',
+                '</div>',
+                '<div class="left">',
+                '<input id="listTags" name="listTags" placeholder="+Add tags" />',
+                '</div>',
+                '<div class="clear"></div>'
+            ].join("")
+        }).inject(document.body);
+
+        var self = this;
+        this.tagify = new mooTagify(this.element, new Request.JSON({
+            url: "checker.php",
+            method: "get"
+        }), {
+            onReady: function() {
+                self.ready = true;
+                done();
+            }
+        });
+    },
+
+    "Expect real click on tag close to remove tag": function(done) {
+        var toRemove = this.tagify.getTags()[0];
+
+        this.tagify.addEvent("tagRemove", function(tag) {
+            buster.assert.equals(tag, toRemove);
+            done();
+        });
+
+
+        Syn.click({}, document.id("closer"));
+    },
+
+    "Expect typing a tag letter by letter with an enter to add it": function(done) {
+
+        var tags = this.tagify.getTags();
+        tags.push("hello world");
+
+        this.tagify.addEvent("tagsUpdate", function() {
+            buster.assert.equals(tags, this.getTags());
+            done();
+        });
+
+        Syn.type('Hello World\r', this.tagify.listTags);
+    }
 
 });

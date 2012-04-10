@@ -13,13 +13,14 @@
     <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.1/mootools-yui-compressed.js"></script>
     <script type="text/javascript" src="../Source/js/mootools-more-1.4.0.1.js"></script>
     <script type="text/javascript" src="../Source/js/mooTagify.js" defer="defer"></script>
+    <script type="text/javascript" src="../test/lib/syn.js" defer="defer"></script>
 </head>
 <body>
 <div class="main">
     <h1>Enter some tags below</h1>
     <div id="tagWrap" class="hide">
         <div class="left tagLock">
-            <div class="tag">public<span class="tagClose"></span></div>
+            <div class="tag">public<span class="tagClose" id="close1"></span></div>
         </div>
         <div class="left">
             <input id="listTags" name="listTags" placeholder="+Add tags" />
@@ -65,10 +66,14 @@
     		    console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
     		}
     	});
+
         document.id("getTags").addEvent("click", function() {
             console.log(tagify.getTags(), tagify.getTags().join(","));
-        })
+        });
+
     });
+
+
 </script>
 </body>
 </html>

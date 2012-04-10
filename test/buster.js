@@ -5,10 +5,12 @@ config["Browser tests"] = {
     environment: "browser", // or "node"
     libs: [
         'test/lib/mootools-yui-compressed.js',
-        'test/lib/es5-shim.min.js'
+        'Source/js/mootools-more-1.4.0.1.js',
+        'test/lib/es5-shim.min.js',
+        'test/lib/syn.js'
     ],
     sources: [
-        "Source/js/*.js"
+        "Source/js/mooTagify.js"
     ],
     tests: [
         "test/tests/*-test.js"

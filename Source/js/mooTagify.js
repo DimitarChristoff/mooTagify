@@ -370,9 +370,6 @@ var mooTagify = this.mooTagify = new Class({
         var eventObject = {
             'blur:relay(input)': this.extractTags.bind(this),
             'click:relay(span.tagClose)': this.removeTag.bind(this),
-            'keydown:relay(input)': function(e, el) {
-                e.key == 'enter' && self.extractTags() && e.stop()
-            },
             'mousedown': function() {
                 self.clicked = true
             },
@@ -383,14 +380,21 @@ var mooTagify = this.mooTagify = new Class({
 
         !this.options.addOnBlur && (delete eventObject['blur:relay(input)'])
         this.element.addEvents(eventObject)
+        this.listTags.addEvents({
+            'keydown': function(e) {
+                console.log(e.key);
+                e.key && e.key == 'enter' && self.extractTags(true) && e.stop && e.stop()
+            }
+        })
         this.fireEvent('ready')
     },
 
-    extractTags: function() {
+    extractTags: function(foo) {
         this.timer = (function() {
             if (this.clicked)
                 return
 
+            foo && console.log("yes")
             clearInterval(this.timer)
             var newTags = this.listTags.get('value').clean().stripScripts()
             !this.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())

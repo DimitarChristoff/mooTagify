@@ -464,19 +464,19 @@ var mooTagify = this.mooTagify = new Class({
     },
 
     removeTag: function(e) {
-        var tag = e.target.getParent()
-        var tagText = tag.get('text')
+        var tag = e.target.getParent(),
+            tagText = tag.get('text'),
+            self = this
+
         !this.options.caseSensitiveTagMatching && (tagText = tagText.toLowerCase())
 
-        var self = this
-        e.target.getParent().set('tween', {
+        tag.set('tween', {
             onComplete: function() {
                 this.element.destroy()
                 self.fireEvent('tagRemove', tagText)
             }
         }).fade(0)
         this.listTags.focus()
-        clearTimeout(this.showTimer)
     },
 
     getTags: function() {

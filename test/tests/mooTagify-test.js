@@ -51,6 +51,18 @@ buster.testCase("mooTagify class test", {
         this.tagify.element.fireEvent("blur:relay(input)");
     },
 
+    "Expect input to empty after processing tags": function(done) {
+        var self = this;
+        this.tagify.addEvent("tagsUpdate", function() {
+            buster.assert.equals(self.tagify.listTags.get("value").length, 0);
+            done();
+        });
+
+        this.tagify.listTags.set("value", "coda,was,here");
+
+        this.tagify.element.fireEvent("blur:relay(input)");
+    },
+
     "Expect taglist to reject existing tags": function(done) {
         var tags = this.tagify.getTags();
 

@@ -33,6 +33,7 @@ buster-server running on http://localhost:1111
 
 dchristoff@Dimitars-iMac:~/projects/mooTagify (master):
 > buster test
-Firefox 13.0a2 OS X: ........
-1 test case, 9 tests, 9 assertions, 0 failures, 0 errors, 0 timeouts
+Chrome 18.0.1025.151 OS X: .............
+Firefox 13.0a2 OS X:       .............
+6 test cases, 26 tests, 26 assertions, 0 failures, 0 errors, 0 timeouts
 ```

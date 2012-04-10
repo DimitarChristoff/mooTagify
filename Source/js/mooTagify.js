@@ -423,7 +423,7 @@ var mooTagify = this.mooTagify = new Class({
             tagsArray = orig.append(tagsArray).unique()
             
             /* remove tags that only differ in case */
-            var tempArray = new Array()
+            var tempArray = []
             tagsArray.each(function(tag) {
                 var found = tempArray.some(function(item) {
                     return item.toLowerCase() == tag.toLowerCase()
@@ -435,7 +435,7 @@ var mooTagify = this.mooTagify = new Class({
             tagsArray = tempArray
 
             target.empty()
-            var done = 0
+            var done = 0, added = [];
             Array.each(tagsArray, function(el) {
                 !this.options.caseSensitiveTagMatching && (el = el.toLowerCase())
 
@@ -447,12 +447,13 @@ var mooTagify = this.mooTagify = new Class({
                 if (el.length >= this.options.minItemLength && el.length < this.options.maxItemLength) {
                     new Element([this.options.tagEls, '[html=', el, '<span class="tagClose"></span>]'].join('')).inject(target)
                     done++
+                    added.push(el)
                 }
                 else {
                     this.fireEvent('invalidTag', el)
                 }
             }, this)
-            this.fireEvent('tagsUpdate')
+            this.fireEvent('tagsUpdate', added)
         }
     },
 

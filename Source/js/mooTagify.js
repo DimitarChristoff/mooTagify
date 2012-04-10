@@ -322,7 +322,7 @@ var mooTagify = this.mooTagify = new Class({
     options: {
         /*
         onReady: Function.From,
-        onLimitReached: Function.From,
+        onLimitReached: function(rejectedTag) {},
         onInvalidTag: function(rejectedTag) {},
         onTagsUpdate: Function.From,
         onTagRemove: function(tagText) {},
@@ -434,7 +434,6 @@ var mooTagify = this.mooTagify = new Class({
                     this.fireEvent('invalidTag', el)
                 }
             }, this)
-
             this.fireEvent('tagsUpdate')
         }
     },

@@ -29,7 +29,7 @@ mooTagify Method: constructor
 
 ### Arguments
 
-1. element - (*mixed*) A string of the id for an Element or an Element that *contains* one or more dropdown menus.
+1. element - (*mixed*) A string of the id for an Element or an Element that *contains* the group of items as in the suggested markup below.
 2. request - (*Request object*, optional) A pre-configured Request class that does the automatic lookups. Suggester uses it to show options onComplete
 2. options - (*object*, optional) a key/value object of options
 

@@ -1,4 +1,4 @@
-buster.testRunner.timeout = 1000;
+buster.testRunner.timeout = 2000;
 buster.testCase("mooTagify class test - case enforced > ", {
     setUp: function(done) {
         this.element = new Element("div#tagWrap", {
@@ -24,6 +24,11 @@ buster.testCase("mooTagify class test - case enforced > ", {
                 done();
             }
         })
+    },
+
+    tearDown: function() {
+        this.element.destroy();
+        this.tagify = null;
     },
 
     "Expect instance to fire ready event": function() {
@@ -149,6 +154,11 @@ buster.testCase("mooTagify class test - case insensitive > ", {
         });
     },
 
+    tearDown: function() {
+        this.element.destroy();
+        this.tagify = null;
+    },
+
     "Expect tags to export in lowercase still": function(done) {
         var testArray = ['Coda','Was','here'];
         this.tagify.addEvent("tagsUpdate", function() {
@@ -206,6 +216,11 @@ buster.testCase("mooTagify class test - via syn events > ", {
                 done();
             }
         });
+    },
+
+    tearDown: function() {
+        this.element.destroy();
+        this.tagify = null;
     },
 
     "Expect real click on tag close to remove tag": function(done) {

@@ -375,27 +375,25 @@ var mooTagify = this.mooTagify = new Class({
             },
             'mouseup': function() {
                 self.clicked = false
+            },
+            'keydown:relay(input)': function(e) {
+                e.key == 'enter' && self.extractTags() && e.stop()
             }
         }
 
         !this.options.addOnBlur && (delete eventObject['blur:relay(input)'])
         this.element.addEvents(eventObject)
-        this.listTags.addEvents({
-            'keydown': function(e) {
-                console.log(e.key);
-                e.key && e.key == 'enter' && self.extractTags(true) && e.stop && e.stop()
-            }
-        })
         this.fireEvent('ready')
     },
 
-    extractTags: function(foo) {
+    extractTags: function() {
+        clearInterval(this.timer)
         this.timer = (function() {
             if (this.clicked)
                 return
 
-            foo && console.log("yes")
             clearInterval(this.timer)
+
             var newTags = this.listTags.get('value').clean().stripScripts()
             !this.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())
 
@@ -404,7 +402,6 @@ var mooTagify = this.mooTagify = new Class({
                 if (this.options.persist)
                     this.listTags.focus()
             }
-
         }).periodical(200, this)
 
         return this
@@ -412,7 +409,7 @@ var mooTagify = this.mooTagify = new Class({
 
     processTags: function(tags) {
         // called when blurred tags entry, rebuilds hash tags preview
-
+        clearInterval(this.timer)
         var tagsArray = tags.split(',').map(function(el) {
             el = el.trim() /* already done in caller .toLowerCase() */
             return el

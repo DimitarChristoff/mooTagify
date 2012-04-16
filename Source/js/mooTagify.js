@@ -473,9 +473,9 @@ var mooTagify = this.mooTagify = new Class({
         tag.set('tween', {
             onComplete: function() {
                 this.element.destroy()
-                self.fireEvent('tagRemove', tagText)
             }
         }).fade(0)
+        self.fireEvent('tagRemove', tagText)
         this.listTags.focus()
     },
 

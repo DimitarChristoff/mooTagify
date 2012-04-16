@@ -198,7 +198,7 @@ var autoSuggest = new Class({
             case 8:
                 // backspace.
                 var len = e.target.get('value').clean()
-                !len.length && this.fireEvent('delete')
+                len.length || this.fireEvent('delete')
             break
             case 40:
                 e && e.stop()
@@ -381,7 +381,7 @@ var mooTagify = this.mooTagify = new Class({
             }
         }
 
-        !this.options.addOnBlur && (delete eventObject['blur:relay(input)'])
+        this.options.addOnBlur || (delete eventObject['blur:relay(input)'])
         this.element.addEvents(eventObject)
         this.fireEvent('ready')
     },
@@ -408,7 +408,7 @@ var mooTagify = this.mooTagify = new Class({
 
         clearInterval(this.timer)
 
-        !check() && (this.timer = check.periodical(200))
+        check() || (this.timer = check.periodical(200))
 
         return this
     },
@@ -468,7 +468,7 @@ var mooTagify = this.mooTagify = new Class({
             tagText = tag.get('text'),
             self = this
 
-        !this.options.caseSensitiveTagMatching && (tagText = tagText.toLowerCase())
+        this.options.caseSensitiveTagMatching || (tagText = tagText.toLowerCase())
 
         tag.set('tween', {
             onComplete: function() {

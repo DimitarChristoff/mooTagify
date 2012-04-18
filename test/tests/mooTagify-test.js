@@ -16,10 +16,8 @@ buster.testCase("mooTagify class test - via syn events > ", {
         }).inject(document.body);
 
         var self = this;
-        this.tagify = new mooTagify(this.element, new Request.JSON({
-            url: "checker.php",
-            method: "get"
-        }), {
+        this.tagify = new mooTagify(this.element, null, {
+            autoSuggest: false,
             onReady: function() {
                 self.ready = true;
                 done();
@@ -54,7 +52,10 @@ buster.testCase("mooTagify class test - via syn events > ", {
             done();
         });
 
-        Syn.type('Hello World\r', this.tagify.listTags);
+        var c = this.tagify.listTags;
+        Syn.type('Hello World\r', this.tagify.listTags, function() {
+            console.log(c.get('value'))
+        });
     }
 
 });

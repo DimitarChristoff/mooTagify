@@ -376,8 +376,15 @@ var mooTagify = this.mooTagify = new Class({
             'mouseup': function() {
                 self.clicked = false
             },
-            'keydown:relay(input)': function(e) {
-                e.key == 'enter' && self.extractTags() && e.stop()
+            'keydown:relay(input)': function(e, el) {
+                if (e.key == 'enter') {
+                    if (self.options.addOnBlur) {
+                        el.blur()
+                    }
+                    else {
+                        self.extractTags() && e.stop()
+                    }
+                }
             }
         }
 
@@ -395,12 +402,11 @@ var mooTagify = this.mooTagify = new Class({
                 clearInterval(this.timer)
 
                 var newTags = self.listTags.get('value').clean().stripScripts()
-                !self.options.caseSensitiveTagMatching && (newTags = newTags.toLowerCase())
+                self.options.caseSensitiveTagMatching || (newTags = newTags.toLowerCase())
 
                 if (newTags.length) {
                     self.processTags(newTags)
-                    if (self.options.persist)
-                        self.listTags.focus()
+                    self.options.persist && self.listTags.focus.delay(10, self.listTags)
                 }
                 self.options.autoSuggest && self.autoSuggester.hide()
                 return true
@@ -417,7 +423,7 @@ var mooTagify = this.mooTagify = new Class({
         // called when blurred tags entry, rebuilds hash tags preview
         clearInterval(this.timer)
         var tagsArray = tags.split(',').map(function(el) {
-            el = el.trim() /* already done in caller .toLowerCase() */
+            el = el.trim()
             return el
         }).unique()
 

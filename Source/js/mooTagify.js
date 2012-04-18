@@ -471,14 +471,14 @@ var mooTagify = this.mooTagify = new Class({
 
     removeTag: function(e) {
         var tag = e.target.getParent(),
-            tagText = tag.get('text'),
-            self = this
+            tagText = tag.get('text')
 
         this.options.caseSensitiveTagMatching || (tagText = tagText.toLowerCase())
 
         tag.destroy()
-        self.fireEvent('tagRemove', tagText)
-        this.listTags.focus()
+        this.fireEvent('tagRemove', tagText)
+        clearTimeout(this.timer)
+        this.options.persist && this.listTags.focus.delay(10, this.listTags)
     },
 
     getTags: function() {

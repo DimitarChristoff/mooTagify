@@ -54,7 +54,7 @@ buster.testCase("mooTagify class test - via syn events > ", {
 
         var c = this.tagify.listTags;
         Syn.type('Hello World\r', this.tagify.listTags, function() {
-            console.log(c.get('value'))
+
         });
     }
 

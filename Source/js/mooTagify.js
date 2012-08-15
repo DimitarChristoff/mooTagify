@@ -336,8 +336,11 @@ exports.mooTagify = new Class({
 		persist: true,
 		autoSuggest: false,
 		addOnBlur: true,
-		caseSensitiveTagMatching: false /* set to true, to keep case as entered */,
-		initialTagsProvider: (function(tagifyInstance){ return tagifyInstance.listTags.get('value'); })
+		caseSensitiveTagMatching: false, /* set to true, to keep case as entered */
+		initialTagsProvider: function(){
+			// expected return is comma separated trimmed tags.
+			return this.listTags.get('value');
+		}
 	},
 
 	initialize: function(element, request, options) {
@@ -354,8 +357,10 @@ exports.mooTagify = new Class({
 
 		this.attachEvents();
 		// initial data from the input
-		var tags = this.options.initialTagsProvider(this);
+		var tags = this.options.initialTagsProvider.call(this);
 		tags && tags.length && this.processTags(tags);
+
+		return this;
 	},
 
 	attachEvents: function() {
@@ -396,7 +401,7 @@ exports.mooTagify = new Class({
 		eventObject['click:relay(' + self.options.closeEls + ')'] = this.removeTag.bind(this);
 		this.options.addOnBlur || (delete eventObject['blur:relay(input)']);
 		this.element.addEvents(eventObject);
-		this.fireEvent('ready');
+		return this.fireEvent('ready');
 	},
 
 	extractTags: function() {
@@ -475,6 +480,8 @@ exports.mooTagify = new Class({
 			}, this);
 			this.fireEvent('tagsUpdate', added);
 		}
+
+		return this;
 	},
 
 	removeTag: function(e, el) {
@@ -489,6 +496,8 @@ exports.mooTagify = new Class({
 		this.fireEvent('tagRemove', tagText);
 		clearTimeout(this.timer);
 		this.options.persist && this.listTags.focus.delay(10, this.listTags);
+
+		return this;
 	},
 
 	getTags: function() {

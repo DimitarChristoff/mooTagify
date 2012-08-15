@@ -336,7 +336,8 @@ exports.mooTagify = new Class({
 		persist: true,
 		autoSuggest: false,
 		addOnBlur: true,
-		caseSensitiveTagMatching: false /* set to true, to keep case as entered */
+		caseSensitiveTagMatching: false /* set to true, to keep case as entered */,
+		initialTagsProvider: (function(tagifyInstance){ return tagifyInstance.listTags.get('value'); })
 	},
 
 	initialize: function(element, request, options) {
@@ -353,7 +354,7 @@ exports.mooTagify = new Class({
 
 		this.attachEvents();
 		// initial data from the input
-		var tags = this.listTags.get('value');
+		var tags = this.options.initialTagsProvider(this);
 		tags && tags.length && this.processTags(tags);
 	},
 

@@ -24,7 +24,7 @@ provides: mooTagify
 
 ...
 */
-;(function() {
+;(function(exports) {
 
 Array.implement({
 
@@ -36,7 +36,7 @@ Array.implement({
 
 
 var autoSuggest = new Class({
-	// private
+	// private class, not exported
 
 	Implements: [Options,Events],
 
@@ -316,7 +316,7 @@ var autoSuggest = new Class({
 });
 
 
-var mooTagify = this.mooTagify = new Class({
+exports.mooTagify = new Class({
 
 	Implements: [Options, Events],
 
@@ -366,7 +366,7 @@ var mooTagify = this.mooTagify = new Class({
 			})
 		}
 
-		this.clicked = false
+		this.clicked = false;
 
 		var eventObject = {
 			'blur:relay(input)': this.extractTags.bind(this),
@@ -387,7 +387,7 @@ var mooTagify = this.mooTagify = new Class({
 					}
 				}
 			}
-		}
+		};
 
 		this.options.addOnBlur || (delete eventObject['blur:relay(input)']);
 		this.element.addEvents(eventObject);
@@ -400,7 +400,7 @@ var mooTagify = this.mooTagify = new Class({
 				if (self.clicked)
 					return false;
 
-				clearInterval(this.timer);
+				clearInterval(self.timer);
 
 				var newTags = self.listTags.get('value').clean().stripScripts();
 				self.options.caseSensitiveTagMatching || (newTags = newTags.toLowerCase());
@@ -489,4 +489,4 @@ var mooTagify = this.mooTagify = new Class({
 	}
 });
 
-}());
+}(this));

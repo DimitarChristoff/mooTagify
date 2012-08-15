@@ -43,7 +43,7 @@ buster.testCase("mooTagify class test - via syn events > ", {
     },
 
     "Expect typing a tag letter by letter with an enter to add it": function(done) {
-
+	    // this test may fail in some browsers due to Syn typing.
         var tags = this.tagify.getTags();
         tags.push("hello world");
 
@@ -53,8 +53,8 @@ buster.testCase("mooTagify class test - via syn events > ", {
         });
 
         var c = this.tagify.listTags;
-        Syn.type('Hello World\r', this.tagify.listTags, function() {
-
+        Syn.type('Hello World\r', c, function() {
+	        c.blur();
         });
     }
 

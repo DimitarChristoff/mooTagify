@@ -352,6 +352,9 @@ exports.mooTagify = new Class({
 			return;
 
 		this.attachEvents();
+		// initial data from the input
+		var tags = this.listTags.get('value');
+		tags && tags.length && this.processTags(tags);
 	},
 
 	attachEvents: function() {

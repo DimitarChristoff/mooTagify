@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>mooTagify Demo Page</title>
+    <meta name="description" content="use tagify to enter tags.">
+    <meta name="author" content="Dimitar Christoff">
+
+    <link rel="stylesheet" href="../Source/css/mooTagify.css">
+    <link class="stylesheet" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+
+</head>
+<body>
+<div class="main">
+    <h2>Enter some tags below</h2>
+    <div id="tagWrap">
+        <div class="pull-left">
+            <span class="btn btn-mini">public<button class="close btn-small remove-tag" title="Remove"></button></span>
+        </div>
+        <div class="pull-left">
+            <input id="listTags" name="listTags" placeholder="+Add tags" />
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+
+    <div>
+        <h2>Get the current tag list from the instance</h2>
+        <button id="getTags" class="btn btn-large btn-primary">Get the tags</button>
+    </div>
+    <p></p>
+    <div class="alert alert-info">
+	The following are auto-completed:
+	<code>
+"bar",
+"barman",
+"barmaid",
+"bartender",
+"FooBar",
+"Gay Bar",
+"crowbar",
+"this",
+"I like this"
+	</code>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="../test/lib/mootools-more-1.4.0.1.js"></script>
+<script type="text/javascript" src="../Source/js/mooTagify.js" defer="defer"></script>
+<script type="text/javascript">
+    window.addEvent("domready", function() {
+        var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
+    		url: "checker.php",
+    		method: "get"
+    	}), {
+            tagEls: 'span.btn.btn-mini',
+            closeEls: 'button.close.btn-small.remove-tag',
+    		autoSuggest: true,
+            // persist: false,
+    		// addOnBlur: false, // only works via enter to add.
+    		onInvalidTag: function(invalidTag) {
+    		    console.log(invalidTag + " was rejected due to length");
+    		},
+    		onLimitReached: function(rejectedTag) {
+    		    console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
+    		}
+    	});
+
+        document.id("getTags").addEvent("click", function() {
+            console.log(tagify.getTags(), tagify.getTags().join(","));
+        });
+
+    });
+
+
+</script>
+</body>
+</html>

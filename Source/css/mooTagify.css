@@ -40,6 +40,7 @@ div.tagLock {
     width: 250px;
     border: 0;
     background-color: #fff;
+    font-size: 12px;
 }
 div.tag {
     position: relative;
@@ -148,3 +149,22 @@ span.HL {
     background: #555;
     color: #fff;
 }
+
+
+#tagWrap .btn-mini {
+    margin-right: 3px;
+    padding-right: 3px;
+    padding-bottom: 1px;
+    padding-top: 0;
+}
+
+.btn button.remove-tag {
+    padding-left: 5px;
+    width: 13px;
+    height: 13px;
+}
+
+.btn button.remove-tag:before {
+    content: "✖"
+}
+

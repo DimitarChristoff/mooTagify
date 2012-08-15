@@ -329,6 +329,7 @@ exports.mooTagify = new Class({
 		onTagRemove: function(tagText) {},
 		*/
 		tagEls: 'div.tag',
+		closeEls: 'span.tagClose',
 		minItemLength: 3,
 		maxItemLength: 16,
 		maxItemCount: 10,
@@ -360,7 +361,7 @@ exports.mooTagify = new Class({
 				onDelete: function() {
 					var last = self.element.getElements(self.options.tagEls).getLast();
 					last && self.element.fireEvent('click', {
-						target: last.getElement('span.tagClose')
+						target: last.getElement(self.options.closeEls)
 					});
 				}
 			})
@@ -370,7 +371,6 @@ exports.mooTagify = new Class({
 
 		var eventObject = {
 			'blur:relay(input)': this.extractTags.bind(this),
-			'click:relay(span.tagClose)': this.removeTag.bind(this),
 			'mousedown': function() {
 				self.clicked = true;
 			},
@@ -389,6 +389,7 @@ exports.mooTagify = new Class({
 			}
 		};
 
+		eventObject['click:relay(' + self.options.closeEls + ')'] = this.removeTag.bind(this);
 		this.options.addOnBlur || (delete eventObject['blur:relay(input)']);
 		this.element.addEvents(eventObject);
 		this.fireEvent('ready');
@@ -458,7 +459,9 @@ exports.mooTagify = new Class({
 				}
 
 				if (el.length >= this.options.minItemLength && el.length < this.options.maxItemLength) {
-					new Element([this.options.tagEls, '[html=', el, '<span class="tagClose"></span>]'].join('')).inject(target);
+					new Element(this.options.tagEls, {
+						html: el
+					}).adopt(new Element(this.options.closeEls)).inject(target);
 					done++;
 					added.push(el);
 				}
@@ -470,9 +473,11 @@ exports.mooTagify = new Class({
 		}
 	},
 
-	removeTag: function(e) {
-		var tag = e.target.getParent(),
+	removeTag: function(e, el) {
+		var tag = el ? el.getParent() : e.target.getParent(),
 			tagText = tag.get('text');
+
+		e && e.stop && e.stop();
 
 		this.options.caseSensitiveTagMatching || (tagText = tagText.toLowerCase());
 

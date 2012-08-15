@@ -5,3 +5,5 @@ current: 1.1
 tags: [tags, autocomplete]
 docs: https://github.com/DimitarChristoff/mooTagify
 demo: http://fragged.org/mooTagify/Demo/
+sources:
+  - "Source/js/mooTagify.js"

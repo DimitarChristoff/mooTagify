@@ -9,7 +9,7 @@ authors: Dimitar Christoff, Qmetric Group Limited
 
 license: MIT-style license.
 
-version: 1.2
+version: 2.0.1
 
 requires:
   - Core/String
@@ -298,7 +298,6 @@ provides: mooTagify
 			}
 			else {
 				this.handleData(this.predefinedAnswers.filter(function(el) {
-
 					return el.test(val, 'i');
 				}));
 			}

@@ -1,9 +1,9 @@
 name: mooTagify
 author: D_mitar
 category: Interface
-current: 1.2
+current: 2.0.1
 tags: [tags, autocomplete]
 docs: https://github.com/DimitarChristoff/mooTagify
-demo: http://fragged.org/mooTagify/Demo/
+demo: http://fragged.org/mooTagify/Demo/index-bootstrap.html
 sources:
   - "Source/js/mootagify.js"

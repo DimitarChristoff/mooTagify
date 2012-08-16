@@ -127,7 +127,7 @@ provides: mooTagify
 				this.show();
 				this.addOptions(data);
 			}
-			else if (!this.request && this.predefinedAnswers.length) {
+			else if (!this.request && this.predefinedAnswers.length && data.length) {
 				this.show();
 				this.addOptions(data);
 			}

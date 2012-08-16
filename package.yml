@@ -6,4 +6,4 @@ tags: [tags, autocomplete]
 docs: https://github.com/DimitarChristoff/mooTagify
 demo: http://fragged.org/mooTagify/Demo/
 sources:
-  - "Source/js/mooTagify.js"
+  - "Source/js/mootagify.js"

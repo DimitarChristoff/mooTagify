@@ -8,7 +8,7 @@
     <meta name="description" content="use tagify to enter tags.">
     <meta name="author" content="Dimitar Christoff">
 
-    <link rel="stylesheet" href="../Source/css/mooTagify.css">
+    <link rel="stylesheet" href="../Source/css/mootagify.css">
     <link class="stylesheet" rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css">
 
 </head>
@@ -50,11 +50,11 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
 <script type="text/javascript" src="../test/lib/mootools-more-1.4.0.1.js"></script>
-<script type="text/javascript" src="../Source/js/mooTagify.js" defer="defer"></script>
+<script type="text/javascript" src="../Source/js/mootagify.js" defer="defer"></script>
 <script type="text/javascript">
     window.addEvent("domready", function() {
         var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
-    		url: "checker.php",
+    		url: "checker.json",
     		method: "get"
     	}), {
     		autoSuggest: true,

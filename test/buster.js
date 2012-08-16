@@ -10,7 +10,7 @@ config["Browser tests"] = {
         'test/lib/syn.js'
     ],
     sources: [
-        "Source/js/mooTagify.js"
+        "Source/js/mootagify.js"
     ],
     tests: [
         "test/tests/*-test.js"

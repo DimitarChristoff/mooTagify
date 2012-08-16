@@ -336,11 +336,13 @@ exports.mooTagify = new Class({
 		persist: true,
 		autoSuggest: false,
 		addOnBlur: true,
-		caseSensitiveTagMatching: false, /* set to true, to keep case as entered */
-		initialTagsProvider: function(){
+		/* set to true, to keep case as entered */
+		caseSensitiveTagMatching: false
+		/* custom getter for the initial tags, if provided. function or csv string */
+		/* initialTags: function(){
 			// expected return is comma separated trimmed tags.
-			return this.listTags.get('value');
-		}
+			return this.listTags.get('value').clean();
+		} */
 	},
 
 	initialize: function(element, request, options) {
@@ -356,12 +358,22 @@ exports.mooTagify = new Class({
 			return;
 
 		this.attachEvents();
-		// initial data from the input
-		var tags = this.options.initialTagsProvider.call(this);
-		tags && tags.length && this.processTags(tags);
+		this.getInitialTags();
 
 		return this;
 	},
+
+	getInitialTags: function() {
+		// options.tags - get string values if string, if func, get return value, otherwise, read from element.
+		var getter = this.options.initialTags,
+			type = typeof getter,
+			tags = type === 'string' ? getter : type === 'function' ? getter.call(this) : this.listTags.get('value').clean();
+
+		// if we have any tags found, set them.
+		tags && tags.length && this.processTags(tags);
+
+		return this;
+	}.protect(),
 
 	attachEvents: function() {
 		var self = this;

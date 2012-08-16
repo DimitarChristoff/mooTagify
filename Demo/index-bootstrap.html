@@ -1,62 +1,62 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>mooTagify BootStrap Demo Page</title>
-    <meta name="description" content="use tagify to enter tags.">
-    <meta name="author" content="Dimitar Christoff">
+	<title>mooTagify BootStrap Demo Page</title>
+	<meta name="description" content="use tagify to enter tags.">
+	<meta name="author" content="Dimitar Christoff">
 
-    <link rel="stylesheet" href="../Source/css/mooTagify-bootstrap.css">
-    <link class="stylesheet" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+	<link rel="stylesheet" href="../Source/css/mooTagify-bootstrap.css">
+	<link class="stylesheet" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
 
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <section>
-            <div class="page-header">
-                <h1>Enter some tags below <small>Press Enter or blur to add. Comma adds multiple tags</small></h1>
-            </div>
+	<div class="row">
+		<section>
+			<div class="page-header">
+				<h1>Enter some tags below <small>Press Enter or blur to add. Comma adds multiple tags</small></h1>
+			</div>
 
-            <div id="tagWrap" class="page-header">
-                <div class="pull-left">
+			<div id="tagWrap" class="page-header">
+				<div class="pull-left">
 
-                </div>
-                <div class="pull-left">
-                    <input autocomplete="off" id="listTags" name="listTags" placeholder="+Add tags" value="mootools,tags,are awesome" />
-                </div>
+				</div>
+				<div class="pull-left">
+					<input autocomplete="off" id="listTags" name="listTags" placeholder="+Add tags" value="mootools,tags,are awesome" />
+				</div>
 
-                <div class="clearfix"></div>
-            </div>
-        </section>
+				<div class="clearfix"></div>
+			</div>
+		</section>
 
-        <section>
-            <div class="alert alert-info">
-                The following are auto-completed:
-                <code>
-                    "bar",
-                    "barman",
-                    "barmaid",
-                    "bartender",
-                    "FooBar",
-                    "Gay Bar",
-                    "crowbar",
-                    "this",
-                    "I like this"
-                </code>. You need to run this example on a web server to use Request. For events and exports, look at the console log.
-            </div>
-        </section>
+		<section>
+			<div class="alert alert-info">
+				The following are auto-completed:
+				<code>
+					"bar",
+					"barman",
+					"barmaid",
+					"bartender",
+					"FooBar",
+					"Gay Bar",
+					"crowbar",
+					"this",
+					"I like this"
+				</code>. You need to run this example on a web server to use Request. For events and exports, look at the console log.
+			</div>
+		</section>
 
-        <section>
-            <div class="page-header">
-                <h1>Scripting <small>interact with the instance for profit</small></h1>
-            </div>
+		<section>
+			<div class="page-header">
+				<h1>Scripting <small>interact with the instance for profit</small></h1>
+			</div>
 
-            <button id="getTags" class="btn btn-large btn-primary">Get the tags</button>
-        </section>
-    </div>
+			<button id="getTags" class="btn btn-large btn-primary">Get the tags</button>
+		</section>
+	</div>
 
 </div>
 
@@ -64,29 +64,33 @@
 <script type="text/javascript" src="../test/lib/mootools-more-1.4.0.1.js"></script>
 <script type="text/javascript" src="../Source/js/mooTagify.js" defer="defer"></script>
 <script type="text/javascript">
-    window.addEvent("domready", function() {
-        var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
-    		url: "checker.php",
-    		method: "get"
-    	}), {
-            tagEls: 'span.btn.btn-mini',
-            closeEls: 'button.close.btn-small.remove-tag',
-    		autoSuggest: true,
-            // persist: false,
-    		// addOnBlur: false, // only works via enter to add.
-    		onInvalidTag: function(invalidTag) {
-    		    console.log(invalidTag + " was rejected due to length");
-    		},
-    		onLimitReached: function(rejectedTag) {
-    		    console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
-    		}
-    	});
+	window.addEvent("domready", function() {
+		var tagify = new mooTagify(document.id("tagWrap"), new Request.JSON({
+			url: "checker.php",
+			method: "get"
+		}), {
+			tagEls: 'span.btn.btn-mini',
+			closeEls: 'button.close.btn-small.remove-tag',
+			autoSuggest: true,
+			tags: 'foo,bar,this rocks',
+			/* tags: function() {
+				return this.listTags.get('value').clean();
+			},*/
+			// persist: false,
+			// addOnBlur: false, // only works via enter to add.
+			onInvalidTag: function(invalidTag) {
+				console.log(invalidTag + " was rejected due to length");
+			},
+			onLimitReached: function(rejectedTag) {
+				console.log(rejectedTag + " was not added, you have reached the maximum allowed tags count of " + this.options.maxItemCount);
+			}
+		});
 
-        document.id("getTags").addEvent("click", function() {
-            console.log(tagify.getTags(), tagify.getTags().join(","));
-        });
+		document.id("getTags").addEvent("click", function() {
+			console.log(tagify.getTags(), tagify.getTags().join(","));
+		});
 
-    });
+	});
 
 
 </script>

@@ -3,7 +3,7 @@ mooTagify
 
 ![Screenshot](http://fragged.org/img/mooTagify.png)
 
-A MooTools plugin that enables tag easy entry and editing, including AJAX (cough) lookups.
+A MooTools plugin that enables easy entry and editing for "tags", including AJAX (cough) look-ups or pre-defined arrays of "answers".
 
 ![Screenshot 1](http://fragged.org/img/mooTagify.jpg)
 
@@ -41,10 +41,10 @@ mooTagify Method: constructor
 
     <div id="tagWrap" class="hide">
         <div class="left tagLock">
-            <div class="tag">public<span class="tagClose" id="close1"></span></div>
+            <!-- tags will go here -->
         </div>
         <div class="left">
-            <input id="listTags" name="listTags" placeholder="+Add tags" />
+            <input value="preload,tags,here" id="listTags" name="listTags" placeholder="+Add tags" />
         </div>
 
         <div class="clear"></div>

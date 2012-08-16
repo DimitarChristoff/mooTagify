@@ -62,13 +62,14 @@ div.tag {
     -o-border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
+
     background-image: -moz-linear-gradient(top, #CFDAE7,#899294);
     background-image: -webkit-linear-gradient(top, #CFDAE7,#899294);
     background-image: -o-linear-gradient(top, #CFDAE7,#899294);
     -webkit-background-clip: padding-box;
     text-shadow: 1px 1px 1px rgba(255,255,255,.3);
     -webkit-text-shadow: 1px 1px 1px rgba(255,255,255,.3);
-    -moz--text-shadow: 1px 1px 1px rgba(255,255,255,.3);
+    -moz-text-shadow: 1px 1px 1px rgba(255,255,255,.3);
 }
 div.tag:hover {
     border: 1px solid #000;
@@ -119,6 +120,7 @@ div.autocompleteWrapper {
     -webkit-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
     -o-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
     -ms-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
+	box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
 }
 div.autocompleteOption {
     padding: 4px;
@@ -133,7 +135,6 @@ div.autocompleteOption {
     -ms-transition: all 0.5s ease-out 0s;
     -o-transition: all 0.5s ease-out 0s;
     transition: all 0.5s ease-out 0s;
-
 }
 div.autocompleteOptionSelected, div.autocompleteOptionSelected:hover {
     background: #DCEC71;

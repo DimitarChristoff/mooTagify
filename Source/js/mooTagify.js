@@ -49,7 +49,7 @@ provides: mooTagify
 			minChars: 2,
 			wrapperZen: 'div.autocompleteWrapper',              // popup wrapper class
 			wrapperShadow: 'boxShadow',                         // extra class applied to wrapper, like one with box-shadow
-			maxHeight: 106,                                     // maximum allowed height for dropdown before it scrolls
+			maxHeight: 112,                                     // maximum allowed height for dropdown before it scrolls
 			optionZen: 'div.autocompleteOption',                // base class of indivdual options
 			optionClassSelected: 'autocompleteOptionSelected',  // pre-selected value class
 			optionClassOver: 'autocompleteOptionOver',          // onmouseover option class

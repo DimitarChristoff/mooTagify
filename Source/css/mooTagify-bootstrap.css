@@ -5,6 +5,13 @@
     padding-top: 0;
 }
 
+#tagWrap .btn-mini:hover {
+	-moz-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
+	-o-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
+	-ms-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
+	box-shadow:1px 1px 1px rgba(0,0,0, 0.5);
+}
 .btn button.remove-tag {
     padding-left: 5px;
     width: 13px;
@@ -32,20 +39,17 @@ div.autocompleteWrapper {
     overflow: hidden;
     overflow-y: auto;
     display: none;
-    background-image: -moz-linear-gradient(top, #fff,#fff,#e8ecec);
-    background-image: -o-linear-gradient(top, #fff,#fff,#ececec);
-    background-image: -ms-linear-gradient(top, #fff,#fff,#ececec);
-    background-image: -webkit-linear-gradient(top, #fff,#fff,#ececec);
     -moz-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
     -webkit-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
     -o-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
     -ms-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
+	box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
 }
 div.autocompleteOption {
     padding: 4px;
     padding-bottom: 2px;
     padding-top: 2px;
-    border-bottom: 1px solid #CFDAE7;
+    border-bottom: 1px solid #fafafa;
     clear: both;
     cursor: pointer;
     _cursor: hand;
@@ -54,20 +58,22 @@ div.autocompleteOption {
     -ms-transition: all 0.5s ease-out 0s;
     -o-transition: all 0.5s ease-out 0s;
     transition: all 0.5s ease-out 0s;
-
 }
 div.autocompleteOptionSelected, div.autocompleteOptionSelected:hover {
-    background: #DCEC71;
-    background-image: -moz-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -webkit-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -o-linear-gradient(top, #CFDAE7,#899294);
+    background: #0088CC !important;
+	color: white !important;
 }
 div.autocompleteOption:hover, div.autocompleteOptionOver {
     background: #ffffcf;
+	color: black;
 }
 
 span.HL {
-    background: #555;
-    color: #fff;
+    /*background: #555;*/
+    color: red;
 }
+div.autocompleteOptionSelected span.HL {
+	color: #ffa9ac !important;
+}
+
 

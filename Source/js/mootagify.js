@@ -45,7 +45,7 @@ provides: mooTagify
 		options: {
 			width: 233,
 			requestInstance: null,
-			predefinedAnswers: [],
+			availableOptions: [],
 			minChars: 2,
 			wrapperZen: 'div.autocompleteWrapper',              // popup wrapper class
 			wrapperShadow: 'boxShadow',                         // extra class applied to wrapper, like one with box-shadow
@@ -60,7 +60,7 @@ provides: mooTagify
 		initialize: function(input, request, options) {
 			this.setOptions(options);
 
-			this.options.predefinedAnswers && this.options.predefinedAnswers.length &&(this.predefinedAnswers = this.options.predefinedAnswers);
+			this.options.availableOptions && this.options.availableOptions.length &&(this.availableOptions = this.options.availableOptions);
 			this.element = document.id(input);
 			if (!this.element)
 				return;
@@ -127,7 +127,7 @@ provides: mooTagify
 				this.show();
 				this.addOptions(data);
 			}
-			else if (!this.request && this.predefinedAnswers.length && data.length) {
+			else if (!this.request && this.availableOptions.length && data.length) {
 				this.show();
 				this.addOptions(data);
 			}
@@ -153,7 +153,7 @@ provides: mooTagify
 				});
 			}
 			else {
-				this.addOptions(this.options.predefinedAnswers);
+				this.addOptions(this.options.availableOptions);
 			}
 
 			return this;
@@ -297,7 +297,7 @@ provides: mooTagify
 				this.request.get(obj);
 			}
 			else {
-				this.handleData(this.predefinedAnswers.filter(function(el) {
+				this.handleData(this.availableOptions.filter(function(el) {
 					return el.test(val, 'i');
 				}));
 			}
@@ -408,7 +408,7 @@ provides: mooTagify
 						}
 					};
 				if (this.options.autoSuggest) {
-					this.options.predefinedAnswers && (obj['predefinedAnswers'] = this.options.predefinedAnswers);
+					this.options.availableOptions && (obj['availableOptions'] = this.options.availableOptions);
 					this.autoSuggester = new autoSuggest(this.element.getElement('input'), this.request, obj)
 				}
 

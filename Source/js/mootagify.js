@@ -356,7 +356,7 @@ provides: mooTagify
 				maxItemCount: 10,
 				persist: true,
 				autoSuggest: false,
-				/* predefinedAnswers: ['answer 1','answer two'], */
+				availableOptions: undefined, //['answer 1', 'answer two'],
 				addOnBlur: true,
 				/* set to true, to keep case as entered */
 				caseSensitiveTagMatching: false

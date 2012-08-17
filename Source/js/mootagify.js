@@ -356,6 +356,7 @@ provides: mooTagify
 				maxItemCount: 10,
 				persist: true,
 				autoSuggest: false,
+				autoSuggesterOptions: {},
 				availableOptions: undefined, //['answer 1', 'answer two'],
 				addOnBlur: true,
 				/* set to true, to keep case as entered */
@@ -399,7 +400,7 @@ provides: mooTagify
 
 			attachEvents: function() {
 				var self = this,
-					obj = {
+					autoSuggesterOptions = {
 						onDelete: function() {
 							var last = self.element.getElements(self.options.tagEls).getLast();
 							last && self.element.fireEvent('click', {
@@ -408,8 +409,9 @@ provides: mooTagify
 						}
 					};
 				if (this.options.autoSuggest) {
-					this.options.availableOptions && (obj['availableOptions'] = this.options.availableOptions);
-					this.autoSuggester = new autoSuggest(this.element.getElement('input'), this.request, obj)
+					this.options.availableOptions && (autoSuggesterOptions['availableOptions'] = this.options.availableOptions);
+					autoSuggesterOptions = Object.merge(this.options.autoSuggesterOptions, autoSuggesterOptions);
+					this.autoSuggester = new autoSuggest(this.element.getElement('input'), this.request, autoSuggesterOptions)
 				}
 
 				this.clicked = false;

@@ -49,6 +49,7 @@ provides: mooTagify
 			minChars: 2,
 			wrapperZen: 'div.autocompleteWrapper.boxShadow',    // popup wrapper class
 			maxHeight: 112,                                     // maximum allowed height for dropdown before it scrolls
+			additionalTopMargin: 0,                             // additional margin value used for positioning the autoSuggester
 			optionZen: 'div.autocompleteOption',                // base class of indivdual options
 			optionClassSelected: 'autocompleteOptionSelected',  // pre-selected value class
 			optionClassOver: 'autocompleteOptionOver',          // onmouseover option class
@@ -96,7 +97,7 @@ provides: mooTagify
 			this.wrapper = new Element(this.options.wrapperZen, {
 				styles: {
 					width: width,
-					marginTop: height
+					marginTop: height + this.options.additionalTopMargin
 				},
 				events: {
 					mouseenter: function() {

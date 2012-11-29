@@ -47,9 +47,9 @@ provides: mooTagify
 			requestInstance: null,
 			availableOptions: [],
 			minChars: 2,
-			wrapperZen: 'div.autocompleteWrapper',              // popup wrapper class
-			wrapperShadow: 'boxShadow',                         // extra class applied to wrapper, like one with box-shadow
+			wrapperZen: 'div.autocompleteWrapper.boxShadow',    // popup wrapper class
 			maxHeight: 112,                                     // maximum allowed height for dropdown before it scrolls
+			additionalTopMargin: 0,                             // additional margin value used for positioning the autoSuggester
 			optionZen: 'div.autocompleteOption',                // base class of indivdual options
 			optionClassSelected: 'autocompleteOptionSelected',  // pre-selected value class
 			optionClassOver: 'autocompleteOptionOver',          // onmouseover option class
@@ -97,7 +97,7 @@ provides: mooTagify
 			this.wrapper = new Element(this.options.wrapperZen, {
 				styles: {
 					width: width,
-					marginTop: height
+					marginTop: height + this.options.additionalTopMargin
 				},
 				events: {
 					mouseenter: function() {
@@ -116,7 +116,6 @@ provides: mooTagify
 				}
 			}).inject(this.element, 'before');
 
-			this.wrapper.addClass(this.options.wrapperShadow);
 			this.scrollFx = new Fx.Scroll(this.wrapper, {
 				duration: 200
 			});
@@ -356,7 +355,8 @@ provides: mooTagify
 				maxItemCount: 10,
 				persist: true,
 				autoSuggest: false,
-				/* predefinedAnswers: ['answer 1','answer two'], */
+				autoSuggesterOptions: {},
+				availableOptions: undefined, //['answer 1', 'answer two'],
 				addOnBlur: true,
 				/* set to true, to keep case as entered */
 				caseSensitiveTagMatching: false
@@ -399,7 +399,7 @@ provides: mooTagify
 
 			attachEvents: function() {
 				var self = this,
-					obj = {
+					autoSuggesterOptions = {
 						onDelete: function() {
 							var last = self.element.getElements(self.options.tagEls).getLast();
 							last && self.element.fireEvent('click', {
@@ -408,8 +408,9 @@ provides: mooTagify
 						}
 					};
 				if (this.options.autoSuggest) {
-					this.options.availableOptions && (obj['availableOptions'] = this.options.availableOptions);
-					this.autoSuggester = new autoSuggest(this.element.getElement('input'), this.request, obj)
+					this.options.availableOptions && (autoSuggesterOptions['availableOptions'] = this.options.availableOptions);
+					autoSuggesterOptions = Object.merge(this.options.autoSuggesterOptions, autoSuggesterOptions);
+					this.autoSuggester = new autoSuggest(this.element.getElement('input'), this.request, autoSuggesterOptions)
 				}
 
 				this.clicked = false;

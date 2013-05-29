@@ -9,7 +9,7 @@
 
  license: MIT-style license.
 
- version: 2.0.2
+ version: 2.0.3
 
  requires:
  - Core/String

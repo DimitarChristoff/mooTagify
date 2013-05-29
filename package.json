@@ -1,0 +1,25 @@
+{
+  "name": "mooTagify",
+  "version": "2.0.2",
+  "description": "Tag input class for MooTools - lets you edit and auto-complete tag lists in an input.",
+  "main": "Source/js/mootagify.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "buster test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DimitarChristoff/mooTagify.git"
+  },
+  "keywords": [
+    "autocomplete",
+    "tag",
+    "ajax"
+  ],
+  "author": "Dimitar Christoff <christoff@gmail.com>",
+  "license": "MIT",
+  "gitHead": "82cbe736bab4bfb3cd68c3b994a3bebed329a236",
+  "readmeFilename": "README.md"
+}

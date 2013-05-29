@@ -1,29 +1,29 @@
 /*
- ---
+---
 
- name: mooTagify with auto suggest
+name: mooTagify with auto suggest
 
- description: provides an input for tags or labels
+description: provides an input for tags or labels
 
- authors: Dimitar Christoff, Qmetric Group Limited
+authors: Dimitar Christoff, Qmetric Group Limited
 
- license: MIT-style license.
+license: MIT-style license.
 
- version: 2.0.3
+version: 2.0.3
 
- requires:
- - Core/String
- - Core/Event
- - Core/Element
- - Core/Array
- - Core/Class
- - More/Element.Shorcuts
- - More/Fx.Scroll
+requires:
+- Core/String
+- Core/Event
+- Core/Element
+- Core/Array
+- Core/Class
+- More/Element.Shorcuts
+- More/Fx.Scroll
 
- provides: mooTagify
+provides: mooTagify
 
- ...
- */
+...
+*/
 ;(function(){
 	'use strict';
 

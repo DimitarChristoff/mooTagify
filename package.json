@@ -1,6 +1,6 @@
 {
   "name": "mooTagify",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Tag input class for MooTools - lets you edit and auto-complete tag lists in an input.",
   "main": "Source/js/mootagify.js",
   "directories": {

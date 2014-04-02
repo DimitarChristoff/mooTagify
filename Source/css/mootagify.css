@@ -1,154 +1,185 @@
 /*generics*/
-html { font-size: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html {
+	font-size: 100%;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.231;
+}
 
-body, button, input, select, textarea { font-family: sans-serif; color: #222; }
-button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+body, button, input, select, textarea {
+	font-family: sans-serif;
+	color: #222;
+}
+
+button, input, select, textarea {
+	font-size: 100%;
+	margin: 0;
+	vertical-align: baseline;
+	*vertical-align: middle;
+}
 
 input::-webkit-input-placeholder {
-    -webkit-appearance: textfield;
-    color: #999;
+	-webkit-appearance: textfield;
+	color: #999;
 }
 
 :-moz-placeholder {
-    color: #999;
+	color: #999;
 }
 
 /*positional generics*/
 .left {
-    float: left;
+	float: left;
 }
+
 .clear {
-     clear: both;
+	clear: both;
 }
+
 div.main {
-    margin:  20px;
+	margin: 20px;
 }
+
 /*mooTagify specifics*/
 #tagWrap {
-    margin: 5px;
-    margin-bottom: 0;
-    margin-top: 10px;
+	margin: 5px;
+	margin-bottom: 0;
+	margin-top: 10px;
 }
+
 div.tagLock {
-    height: 20px !important;
-    overflow-y: hidden;
+	height: 20px !important;
+	overflow-y: hidden;
 }
+
 #listTags {
-    padding: 2px;
-    width: 250px;
-    border: 0;
-    background-color: #fff;
-    font-size: 12px;
+	padding: 2px;
+	width: 250px;
+	border: 0;
+	background-color: #fff;
+	font-size: 12px;
 }
+
 div.tag {
-    position: relative;
-    float: left;
-    background: #CFDAE7;
-    border: 1px solid #6A6A6A;
-    border-top: 0;
-    border-left: 0;
-    padding-top: 2px;
-    padding-right: 21px;
-    padding-left: 3px;
-    font-weight: bold;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-right: 6px;
-    color: #000;
-    border-radius: 3px 3px 3px 3px;
-    -ms-border-radius: 3px 3px 3px 3px;
-    -o-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
+	position: relative;
+	float: left;
+	background: #CFDAE7;
+	border: 1px solid #6A6A6A;
+	border-top: 0;
+	border-left: 0;
+	padding-top: 2px;
+	padding-right: 21px;
+	padding-left: 3px;
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	margin-right: 6px;
+	color: #000;
+	border-radius: 3px 3px 3px 3px;
+	-ms-border-radius: 3px 3px 3px 3px;
+	-o-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
 
-    background-image: -moz-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -webkit-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -o-linear-gradient(top, #CFDAE7,#899294);
-    -webkit-background-clip: padding-box;
-    text-shadow: 1px 1px 1px rgba(255,255,255,.3);
-    -webkit-text-shadow: 1px 1px 1px rgba(255,255,255,.3);
-    -moz-text-shadow: 1px 1px 1px rgba(255,255,255,.3);
+	background-image: -moz-linear-gradient(top, #CFDAE7, #899294);
+	background-image: -webkit-linear-gradient(top, #CFDAE7, #899294);
+	background-image: -o-linear-gradient(top, #CFDAE7, #899294);
+	-webkit-background-clip: padding-box;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
+	-webkit-text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
+	-moz-text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
 }
+
 div.tag:hover {
-    border: 1px solid #000;
-    border-top: 0;
-    border-left: 0;
-    background: #DCEC71;
-    background-image: -moz-linear-gradient(top, #DCEC71,#5F9F00);
-    background-image: -webkit-linear-gradient(top, #DCEC71,#5F9F00);
-    background-image: -o-linear-gradient(top, #DCEC71,#5F9F00);
+	border: 1px solid #000;
+	border-top: 0;
+	border-left: 0;
+	background: #DCEC71;
+	background-image: -moz-linear-gradient(top, #DCEC71, #5F9F00);
+	background-image: -webkit-linear-gradient(top, #DCEC71, #5F9F00);
+	background-image: -o-linear-gradient(top, #DCEC71, #5F9F00);
 }
+
 div.pub {
-    background: #DCEC71;
-    background-image: -moz-linear-gradient(top, #DCEC71,#5F9F00);
-    background-image: -webkit-linear-gradient(top, #DCEC71,#5F9F00);
-    background-image: -o-linear-gradient(top, #DCEC71,#5F9F00);
+	background: #DCEC71;
+	background-image: -moz-linear-gradient(top, #DCEC71, #5F9F00);
+	background-image: -webkit-linear-gradient(top, #DCEC71, #5F9F00);
+	background-image: -o-linear-gradient(top, #DCEC71, #5F9F00);
 
 }
+
 span.tagClose {
-    background: url(../images/close-off.png) no-repeat 3px 2px;
-    width: 16px;
-    height: 18px;
-    cursor: pointer;
-    margin-top: 0px;
-    margin-left: 3px;
-    position: absolute;
-    _cursor: hand;
-    border-left: 1px solid #6A6A6A;
+	background: url(../images/close-off.png) no-repeat 3px 2px;
+	width: 16px;
+	height: 18px;
+	cursor: pointer;
+	margin-top: 0px;
+	margin-left: 3px;
+	position: absolute;
+	_cursor: hand;
+	border-left: 1px solid #6A6A6A;
 }
+
 span.tagClose:hover {
-    background-position: 3px 3px;
-    background-color: rgba(255,255,255,.5);
-    border-left: 1px solid #000;
+	background-position: 3px 3px;
+	background-color: rgba(255, 255, 255, .5);
+	border-left: 1px solid #000;
 }
 
 div.autocompleteWrapper {
-    border: 1px solid #ccc;
-    position: absolute;
-    z-index: 10000;
-    background: white;
-    overflow: hidden;
-    overflow-y: auto;
-    display: none;
-    background-image: -moz-linear-gradient(top, #fff,#fff,#e8ecec);
-    background-image: -o-linear-gradient(top, #fff,#fff,#ececec);
-    background-image: -ms-linear-gradient(top, #fff,#fff,#ececec);
-    background-image: -webkit-linear-gradient(top, #fff,#fff,#ececec);
-    -moz-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -webkit-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -o-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -ms-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-	box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
+	border: 1px solid #ccc;
+	position: absolute;
+	z-index: 10000;
+	background: white;
+	overflow: hidden;
+	overflow-y: auto;
+	display: none;
+	background-image: -moz-linear-gradient(top, #fff, #fff, #e8ecec);
+	background-image: -o-linear-gradient(top, #fff, #fff, #ececec);
+	background-image: -ms-linear-gradient(top, #fff, #fff, #ececec);
+	background-image: -webkit-linear-gradient(top, #fff, #fff, #ececec);
+	-moz-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-o-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-ms-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
 }
+
 div.autocompleteOption {
-    padding: 4px;
-    padding-bottom: 2px;
-    padding-top: 2px;
-    border-bottom: 1px solid #CFDAE7;
-    clear: both;
-    cursor: pointer;
-    _cursor: hand;
-     -webkit-transition: all 0.5s ease-out 0s;
-    -moz-transition: all 0.5s ease-out 0s;
-    -ms-transition: all 0.5s ease-out 0s;
-    -o-transition: all 0.5s ease-out 0s;
-    transition: all 0.5s ease-out 0s;
+	padding: 4px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border-bottom: 1px solid #CFDAE7;
+	clear: both;
+	cursor: pointer;
+	_cursor: hand;
+	-webkit-transition: all 0.5s ease-out 0s;
+	-moz-transition: all 0.5s ease-out 0s;
+	-ms-transition: all 0.5s ease-out 0s;
+	-o-transition: all 0.5s ease-out 0s;
+	transition: all 0.5s ease-out 0s;
 }
+
 div.autocompleteOptionSelected, div.autocompleteOptionSelected:hover {
-    background: #DCEC71;
-    background-image: -moz-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -webkit-linear-gradient(top, #CFDAE7,#899294);
-    background-image: -o-linear-gradient(top, #CFDAE7,#899294);
+	background: #DCEC71;
+	background-image: -moz-linear-gradient(top, #CFDAE7, #899294);
+	background-image: -webkit-linear-gradient(top, #CFDAE7, #899294);
+	background-image: -o-linear-gradient(top, #CFDAE7, #899294);
 }
+
 div.autocompleteOption:hover, div.autocompleteOptionOver {
-    background: #ffffcf;
+	background: #ffffcf;
 }
 
 span.HL {
-    background: #555;
-    color: #fff;
+	background: #555;
+	color: #fff;
 }
-
-

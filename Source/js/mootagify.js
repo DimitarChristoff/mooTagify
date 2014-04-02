@@ -5,11 +5,11 @@ name: mooTagify with auto suggest
 
 description: provides an input for tags or labels
 
-authors: Dimitar Christoff, Qmetric Group Limited
+authors: Dimitar Christoff
 
 license: MIT-style license.
 
-version: 2.0.3
+version: 2.0.4
 
 requires:
 - Core/String

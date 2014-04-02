@@ -3,7 +3,7 @@ mooTagify
 
 ![Screenshot](http://fragged.org/img/mooTagify.png)
 
-A MooTools plugin that enables easy entry and editing for "tags", including AJAX (cough) look-ups or pre-defined arrays of "answers".
+A MooTools plugin that enables easy entry and editing for "tags", including AJAX (cough) look-ups or pre-defined arrays of "answers". Warning: I don't develop or support it anymore.
 
 ![Screenshot 1](http://fragged.org/img/mooTagify.jpg)
 

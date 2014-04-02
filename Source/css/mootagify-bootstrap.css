@@ -1,77 +1,81 @@
 #tagWrap .btn-mini {
-    margin-right: 3px;
-    padding-right: 3px;
-    padding-bottom: 1px;
-    padding-top: 0;
+	margin-right: 3px;
+	padding-right: 3px;
+	padding-bottom: 1px;
+	padding-top: 0;
 }
 
 #tagWrap .btn-mini:hover {
-	-moz-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
-	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
-	-o-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
-	-ms-box-shadow: 1px 1px 1px rgba(0,0,0, 0.5);
-	box-shadow:1px 1px 1px rgba(0,0,0, 0.5);
+	-moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	-o-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	-ms-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
+
 .btn button.remove-tag {
-    padding-left: 5px;
-    width: 13px;
-    height: 13px;
+	padding-left: 5px;
+	width: 13px;
+	height: 13px;
 }
 
 .btn button.remove-tag:before {
-    content: "✖"
+	content: "✖"
 }
 
 #listTags {
-    padding: 2px;
-    width: 250px;
-    border: 0;
-    background-color: #fff;
-    font-size: 12px;
+	padding: 2px;
+	width: 250px;
+	border: 0;
+	background-color: #fff;
+	font-size: 12px;
 }
-
 
 div.autocompleteWrapper {
-    border: 1px solid #ccc;
-    position: absolute;
-    z-index: 10000;
-    background: white;
-    overflow: hidden;
-    overflow-y: auto;
-    display: none;
-    -moz-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -webkit-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -o-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-    -ms-box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
-	box-shadow: 2px 4px 2px rgba(0,0,0, 0.5);
+	border: 1px solid #ccc;
+	position: absolute;
+	z-index: 10000;
+	background: white;
+	overflow: hidden;
+	overflow-y: auto;
+	display: none;
+	-moz-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-o-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	-ms-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
 }
+
 div.autocompleteOption {
-    padding: 4px;
-    padding-bottom: 2px;
-    padding-top: 2px;
-    border-bottom: 1px solid #fafafa;
-    clear: both;
-    cursor: pointer;
-    _cursor: hand;
-    -webkit-transition: all 0.5s ease-out 0s;
-    -moz-transition: all 0.5s ease-out 0s;
-    -ms-transition: all 0.5s ease-out 0s;
-    -o-transition: all 0.5s ease-out 0s;
-    transition: all 0.5s ease-out 0s;
+	padding: 4px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border-bottom: 1px solid #fafafa;
+	clear: both;
+	cursor: pointer;
+	_cursor: hand;
+	-webkit-transition: all 0.5s ease-out 0s;
+	-moz-transition: all 0.5s ease-out 0s;
+	-ms-transition: all 0.5s ease-out 0s;
+	-o-transition: all 0.5s ease-out 0s;
+	transition: all 0.5s ease-out 0s;
 }
+
 div.autocompleteOptionSelected, div.autocompleteOptionSelected:hover {
-    background: #0088CC !important;
+	background: #0088CC !important;
 	color: white !important;
 }
+
 div.autocompleteOption:hover, div.autocompleteOptionOver {
-    background: #ffffcf;
+	background: #ffffcf;
 	color: black;
 }
 
 span.HL {
-    /*background: #555;*/
-    color: red;
+	/*background: #555;*/
+	color: red;
 }
+
 div.autocompleteOptionSelected span.HL {
 	color: #ffa9ac !important;
 }
